@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:padding="8dp"
+            android:src="@drawable/ic_back"
+            android:layout_marginTop="40dp"
+            android:elevation="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <com.smarteist.autoimageslider.SliderView
+            android:id="@+id/imageProductSlider"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:sliderAnimationDuration="600"
+            app:sliderAutoCycleDirection="back_and_forth"
+            app:sliderAutoCycleEnabled="true"
+            app:sliderIndicatorAnimationDuration="600"
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+            app:sliderIndicatorMargin="15dp"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="3dp"
+            app:sliderIndicatorRadius="1dp"
+            app:sliderIndicatorSelectedColor="@color/white"
+            app:sliderIndicatorUnselectedColor="@color/light_black"
+            app:sliderScrollTimeInSec="1"
+            app:sliderStartAutoCycle="true" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/productInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/imageProductSlider"
+            android:layout_marginTop="8dp"
+            >
+
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/app_name"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_margin="16dp"
+                android:maxLines="1"/>
+            <TextView
+                android:id="@+id/productPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/productName"
+                app:layout_constraintStart_toStartOf="@id/productName"
+                android:layout_marginTop="8dp"
+                android:text="179.000đ"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/productColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/productPrice"
+                app:layout_constraintStart_toStartOf="@id/productName"
+                android:layout_marginTop="8dp"
+                android:text="Màu sắc: Xanh biển"/>
+            <GridView
+                android:id="@+id/colorPick"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:layout_constraintTop_toBottomOf="@id/productColor"
+                android:horizontalSpacing="8dp"
+                android:numColumns="6"
+                android:padding="16dp"
+                android:verticalSpacing="12dp"
+                android:scrollbars="none"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

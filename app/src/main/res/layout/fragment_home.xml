@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".presentation.store.home.HomeFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:paddingVertical="4dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/content_des_logo"
+                android:src="@drawable/ic_logo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/brand"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/brand_describe"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="@id/logo"
+                app:layout_constraintEnd_toStartOf="@id/cart"
+                app:layout_constraintStart_toEndOf="@id/logo"
+                app:layout_constraintTop_toTopOf="@id/logo" />
+
+            <ImageView
+                android:id="@+id/chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_des_chat"
+                android:padding="8dp"
+                android:src="@drawable/ic_chat"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_des_cart"
+                android:padding="8dp"
+                android:src="@drawable/ic_cart"
+                app:layout_constraintEnd_toStartOf="@id/chat"
+                app:layout_constraintTop_toTopOf="@id/chat" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/white"
+            app:cardCornerRadius="6dp"
+            app:layout_constraintTop_toBottomOf="@id/action_bar">
+
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:sliderAnimationDuration="600"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="1dp"
+                app:sliderIndicatorSelectedColor="@color/white"
+                app:sliderIndicatorUnselectedColor="@color/light_black"
+                app:sliderScrollTimeInSec="1"
+                app:sliderStartAutoCycle="true" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/story_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:background="@drawable/item_touch"
+            app:layout_constraintTop_toBottomOf="@id/cardSlider">
+
+            <ImageView
+                android:id="@+id/section_story"
+                android:layout_width="4dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="6dp"
+                android:background="@color/black"
+                android:contentDescription="@string/app_name"
+                app:layout_constraintBottom_toBottomOf="@id/story_title"
+                app:layout_constraintEnd_toStartOf="@id/story_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/story_title" />
+
+            <TextView
+                android:id="@+id/story_title"
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center|start"
+                android:text="@string/title_story"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/section_story"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/story_more_title"
+                style="@style/BaseText"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center|end"
+                android:text="@string/more"
+                app:layout_constraintBottom_toBottomOf="@id/story_title"
+                app:layout_constraintEnd_toStartOf="@id/more_story"
+                app:layout_constraintStart_toEndOf="@id/story_title"
+                app:layout_constraintTop_toTopOf="@id/story_title" />
+
+            <ImageView
+                android:id="@+id/more_story"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/des"
+                android:padding="8dp"
+                android:src="@drawable/ic_more"
+                app:layout_constraintBottom_toBottomOf="@id/story_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/story_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/storyCard"
+            style="@style/BaseCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/story_header">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/storyPic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:contentDescription="@string/des"
+                    android:scaleType="center"
+                    android:src="@drawable/bg_setting_topic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/storyShortDes"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="8dp"
+                    android:text="@string/short_des_story"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/storyPic"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/story_header1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:background="@drawable/item_touch"
+            app:layout_constraintTop_toBottomOf="@id/storyCard">
+
+            <ImageView
+                android:id="@+id/section_story1"
+                android:layout_width="4dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="6dp"
+                android:background="@color/black"
+                android:contentDescription="@string/des"
+                app:layout_constraintBottom_toBottomOf="@id/story_title1"
+                app:layout_constraintEnd_toStartOf="@id/story_title1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/story_title1" />
+
+            <TextView
+                android:id="@+id/story_title1"
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center|start"
+                android:text="@string/title_cus_service"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/section_story1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/story_more_title1"
+                style="@style/BaseText"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center|end"
+                android:text="@string/more"
+                app:layout_constraintBottom_toBottomOf="@id/story_title1"
+                app:layout_constraintEnd_toStartOf="@id/more_story1"
+                app:layout_constraintStart_toEndOf="@id/story_title1"
+                app:layout_constraintTop_toTopOf="@id/story_title1" />
+
+            <ImageView
+                android:id="@+id/more_story1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/des"
+                android:padding="8dp"
+                android:src="@drawable/ic_more"
+                app:layout_constraintBottom_toBottomOf="@id/story_title1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/story_title1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/storyCard1"
+            style="@style/BaseCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/story_header1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/storyPic1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:contentDescription="@string/des"
+                    android:scaleType="center"
+                    android:src="@drawable/bg_setting_topic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/storyShortDes1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="8dp"
+                    android:text="@string/short_des_story"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/storyPic1"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/story_header2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:background="@drawable/item_touch"
+            app:layout_constraintTop_toBottomOf="@id/storyCard1">
+
+            <ImageView
+                android:id="@+id/section_story2"
+                android:layout_width="4dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="6dp"
+                android:background="@color/black"
+                android:contentDescription="@string/des"
+                app:layout_constraintBottom_toBottomOf="@id/story_title2"
+                app:layout_constraintEnd_toStartOf="@id/story_title2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/story_title2" />
+
+            <TextView
+                android:id="@+id/story_title2"
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center|start"
+                android:text="@string/title_staff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/section_story2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/story_more_title2"
+                style="@style/BaseText"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center|end"
+                android:text="@string/more"
+                app:layout_constraintBottom_toBottomOf="@id/story_title2"
+                app:layout_constraintEnd_toStartOf="@id/more_story2"
+                app:layout_constraintStart_toEndOf="@id/story_title2"
+                app:layout_constraintTop_toTopOf="@id/story_title2" />
+
+            <ImageView
+                android:id="@+id/more_story2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/des"
+                android:padding="8dp"
+                android:src="@drawable/ic_more"
+                app:layout_constraintBottom_toBottomOf="@id/story_title2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/story_title2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/storyCard2"
+            style="@style/BaseCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/story_header2">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/storyPic2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:contentDescription="@string/des"
+                    android:scaleType="center"
+                    android:src="@drawable/bg_setting_topic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/storyShortDes2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="8dp"
+                    android:text="@string/short_des_story"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/storyPic2"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardMap"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/storyCard2">
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapViewHcm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/cardSlider" />
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

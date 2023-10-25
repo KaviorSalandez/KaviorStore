@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".presentation.login.LoginFragment">
+
+    <TextView
+        android:id="@+id/idTVHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="@string/title_login_form"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--edit text for user name-->
+    <EditText
+        android:id="@+id/idEdtUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idTVHeader"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/black"
+        android:hint="@string/hint_username_login"
+        android:inputType="textEmailAddress"
+        android:textColorHint="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/idTVHeader" />
+
+    <!--edit text for user password-->
+    <EditText
+        android:id="@+id/idEdtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idEdtUserName"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/light_black"
+        android:hint="@string/hint_password_login"
+        android:inputType="textPassword"
+        android:textColorHint="@color/light_black"
+        app:layout_constraintTop_toBottomOf="@id/idEdtUserName" />
+
+    <!--button to register our new user-->
+    <Button
+        android:id="@+id/idBtnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idEdtPassword"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/black"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/idEdtPassword" />
+
+    <Button
+        android:id="@+id/idBtnLoginByFB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idBtnLogin"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:text="Signup with Facebook"
+        android:drawableLeft="@drawable/ic_fb"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/idBtnLogin" />
+
+    <Button
+        android:id="@+id/idBtnLoginByGmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idBtnLoginByFB"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:text="Signup with Gmail"
+        android:drawableLeft="@drawable/ic_gmail"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/idBtnLoginByFB" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

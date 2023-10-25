@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.store.home.AboutDetailFragment"
+    android:background="@color/white">
+
+    <ImageButton
+        android:id="@+id/backHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:padding="8dp"
+        android:src="@drawable/ic_back"
+        android:layout_marginTop="40dp"
+        android:elevation="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.smarteist.autoimageslider.SliderView
+        android:id="@+id/imageAboutSlider"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:sliderAnimationDuration="600"
+        app:sliderAutoCycleDirection="back_and_forth"
+        app:sliderAutoCycleEnabled="true"
+        app:sliderIndicatorAnimationDuration="600"
+        app:sliderIndicatorGravity="center_horizontal|bottom"
+        app:sliderIndicatorMargin="15dp"
+        app:sliderIndicatorOrientation="horizontal"
+        app:sliderIndicatorPadding="3dp"
+        app:sliderIndicatorRadius="1dp"
+        app:sliderIndicatorSelectedColor="@color/white"
+        app:sliderIndicatorUnselectedColor="@color/light_black"
+        app:sliderScrollTimeInSec="1"
+        app:sliderStartAutoCycle="true" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/aboutInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/imageAboutSlider">
+
+        <TextView
+            android:id="@+id/aboutTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/app_name"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_margin="16dp"
+            android:maxLines="1"/>
+        <TextView
+            android:id="@+id/aboutSubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            app:layout_constraintTop_toBottomOf="@id/aboutTitle"
+            app:layout_constraintStart_toStartOf="@id/aboutTitle"
+            android:layout_marginTop="8dp"
+            android:text="Màu sắc: Xanh biển"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
