@@ -40,9 +40,11 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product p = productArrayList.get(position);
-        Glide.with(context).load(p.getImageUrl()).into(holder.productThumb);
+     //   Glide.with(context).load(p.getImageUrl()).into(holder.productThumb);
+        holder.productId.setText(String.valueOf(p.getId()));
         holder.productName.setText(p.getProductName());
-        holder.productPrice.setText(p.getPrice().toString());
+        holder.productPrice.setText(String.valueOf(p.getPrice()));
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,12 +70,14 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView productId;
         private ImageView productThumb;
         private TextView productName;
         private TextView productPrice;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            productId = itemView.findViewById(R.id.idOfProduct);
             productThumb = itemView.findViewById(R.id.productThumb);
             productName = itemView.findViewById(R.id.productName);
             productPrice = itemView.findViewById(R.id.price);

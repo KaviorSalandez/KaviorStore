@@ -43,7 +43,7 @@
             android:textSize="18sp"
             android:text="179.000"/>
         <TextView
-            android:id="@+id/priceFake"
+            android:id="@+id/idOfProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/price"
@@ -53,6 +53,7 @@
             android:foreground="@drawable/text_strike_through"
             android:textSize="16sp"
             android:text="179.000"
+            android:visibility="gone"
             tools:targetApi="m" />
 
 <!--        <ImageView-->

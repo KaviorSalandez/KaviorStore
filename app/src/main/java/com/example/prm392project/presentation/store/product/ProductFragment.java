@@ -29,13 +29,11 @@ import retrofit2.Response;
 
 public class ProductFragment extends Fragment {
     public List<Product> productList = new ArrayList<>();
-    public List<String> colorList = new ArrayList<>();
-    public List<String> sizeList = new ArrayList<>();
-    public List<String> imageList = new ArrayList<>();
     private RecyclerView recyclerProduct;
-    private ProductItemAdapter productAdapter ;
+    private ProductItemAdapter productAdapter;
 
     private FragmentProductBinding binding;
+
     public ProductFragment() {
         // Required empty public constructor
     }
@@ -59,53 +57,39 @@ public class ProductFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initProdcts();
         recyclerProduct = binding.productList;
-        productAdapter = new ProductItemAdapter(requireContext(), productList);
-        recyclerProduct.setAdapter(productAdapter);
-        GridLayoutManager layoutManager = new GridLayoutManager(requireContext(),2);
+        initProdcts();
+        // productAdapter = new ProductItemAdapter(requireContext(), productList);
+        //  recyclerProduct.setAdapter(productAdapter);
+        GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
         recyclerProduct.setLayoutManager(layoutManager);
-        productAdapter.setOnClickListener((position, p) -> {
-            FragmentManager fm = requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = fm.beginTransaction().setCustomAnimations(
-                    R.anim.slide_in,  // enter
-                    R.anim.fade_out,  // exit
-                    R.anim.fade_in,   // popEnter
-                    R.anim.slide_out  // popExit
-            );
-            transaction.replace(R.id.wrapper, new ProductDetailFragment(), null).addToBackStack(null).commit();
-        });
+//        productAdapter.setOnClickListener((position, p) -> {
+//            FragmentManager fm = requireActivity().getSupportFragmentManager();
+//            FragmentTransaction transaction = fm.beginTransaction().setCustomAnimations(
+//                    R.anim.slide_in,  // enter
+//                    R.anim.fade_out,  // exit
+//                    R.anim.fade_in,   // popEnter
+//                    R.anim.slide_out  // popExit
+//            );
+        // transaction.replace(R.id.wrapper, new ProductDetailFragment(), null).addToBackStack(null).commit();
+        //  });
     }
 
-    private void initProdcts(){
-//        colorList.add("Trắng");
-//        colorList.add("Xanh biển");
-//        colorList.add("Be");
-//        colorList.add("Xanh đậm");
-//        colorList.add("Đen");
-//        colorList.add("Nâu");
-//        colorList.add("Xanh mint");
-//        colorList.add("Xanh rêu");
-//        colorList.add("Xanh tím");
-//        sizeList.add("S");
-//        sizeList.add("M");
-//        sizeList.add("L");
-//        sizeList.add("XL");
-//        sizeList.add("2XL");
-//        sizeList.add("3XL");
-//        sizeList.add("4XL");
-//        imageList.add("https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b");
+    private void initProdcts() {
 
 
+        getProducts();
         // call list product by api
-        productList.add(new Product(1, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
-        productList.add(new Product(2, "T-Shirt Cotton 220GSM", 179000.0, "https://mcdn.coolmate.me/image/July2023/mceclip0_67.jpg"));
-        productList.add(new Product(3, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
-        productList.add(new Product(4, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
-        productList.add(new Product(5, "T-Shirt Cotton 220GSM", 179000.0, "https://mcdn.coolmate.me/image/July2023/mceclip0_67.jpg"));
-        productList.add(new Product(6, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
-        productList.add(new Product(7, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
-        productList.add(new Product(8, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
-        productList.add(new Product(9, "T-Shirt Cotton 220GSM", 179000.0, "https://mcdn.coolmate.me/image/July2023/mceclip0_67.jpg"));
-        productList.add(new Product(10, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
+
+//        productList.add(new Product(1, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
+//        productList.add(new Product(2, "T-Shirt Cotton 220GSM", 179000.0, "https://mcdn.coolmate.me/image/July2023/mceclip0_67.jpg"));
+//        productList.add(new Product(3, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
+//        productList.add(new Product(4, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
+//        productList.add(new Product(5, "T-Shirt Cotton 220GSM", 179000.0, "https://mcdn.coolmate.me/image/July2023/mceclip0_67.jpg"));
+//        productList.add(new Product(6, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
+//        productList.add(new Product(7, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
+//        productList.add(new Product(8, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
+//        productList.add(new Product(9, "T-Shirt Cotton 220GSM", 179000.0, "https://mcdn.coolmate.me/image/July2023/mceclip0_67.jpg"));
+//        productList.add(new Product(10, "T-Shirt Cotton 220GSM", 179000.0, "https://img.ws.mms.shopee.vn/vn-11134207-7r98o-lkqk86doy0g00b"));
 
     }
 
@@ -117,6 +101,18 @@ public class ProductFragment extends Fragment {
 
                         productList = response.body();
                         Toast.makeText(requireContext(), "" + productList.size(), Toast.LENGTH_SHORT).show();
+                        ProductItemAdapter adapter = new ProductItemAdapter(requireContext(), productList);
+                        recyclerProduct.setAdapter(adapter);
+                        adapter.setOnClickListener((position, p) -> {
+                            FragmentManager fm = requireActivity().getSupportFragmentManager();
+                            FragmentTransaction transaction = fm.beginTransaction().setCustomAnimations(
+                                    R.anim.slide_in,  // enter
+                                    R.anim.fade_out,  // exit
+                                    R.anim.fade_in,   // popEnter
+                                    R.anim.slide_out  // popExit
+                            );
+                            transaction.replace(R.id.wrapper, new ProductDetailFragment(), null).addToBackStack(null).commit();
+                        });
                     }
 
                     @Override
