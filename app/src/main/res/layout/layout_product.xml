@@ -20,24 +20,31 @@
             android:elevation="1dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <com.smarteist.autoimageslider.SliderView
-            android:id="@+id/imageProductSlider"
+<!--        <com.smarteist.autoimageslider.SliderView-->
+<!--            android:id="@+id/imageProductSlider"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="400dp"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:sliderAnimationDuration="600"-->
+<!--            app:sliderAutoCycleDirection="back_and_forth"-->
+<!--            app:sliderAutoCycleEnabled="true"-->
+<!--            app:sliderIndicatorAnimationDuration="600"-->
+<!--            app:sliderIndicatorGravity="center_horizontal|bottom"-->
+<!--            app:sliderIndicatorMargin="15dp"-->
+<!--            app:sliderIndicatorOrientation="horizontal"-->
+<!--            app:sliderIndicatorPadding="3dp"-->
+<!--            app:sliderIndicatorRadius="1dp"-->
+<!--            app:sliderIndicatorSelectedColor="@color/white"-->
+<!--            app:sliderIndicatorUnselectedColor="@color/light_black"-->
+<!--            app:sliderScrollTimeInSec="1"-->
+<!--            app:sliderStartAutoCycle="true" />-->
+
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageProductSlider"
             app:layout_constraintTop_toTopOf="parent"
-            app:sliderAnimationDuration="600"
-            app:sliderAutoCycleDirection="back_and_forth"
-            app:sliderAutoCycleEnabled="true"
-            app:sliderIndicatorAnimationDuration="600"
-            app:sliderIndicatorGravity="center_horizontal|bottom"
-            app:sliderIndicatorMargin="15dp"
-            app:sliderIndicatorOrientation="horizontal"
-            app:sliderIndicatorPadding="3dp"
-            app:sliderIndicatorRadius="1dp"
-            app:sliderIndicatorSelectedColor="@color/white"
-            app:sliderIndicatorUnselectedColor="@color/light_black"
-            app:sliderScrollTimeInSec="1"
-            app:sliderStartAutoCycle="true" />
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/productInfo"

@@ -8,14 +8,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="brand_describe">Thời trang nam</string>
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBhTaU972-vgJQrUsvnD1we-jcXdrDvezs</string>
-    <string name="title_login_form">Chào mừng đến với Coolmate \n Đăng nhập</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBeYL-ONrwYI9VnvHM8UAKRrQ0viX-I66Y</string>
+    <string name="title_login_form">Chào mừng đến với KaviorStoreKeyBroad \n Đăng nhập</string>
+    <string name="title_register_form">Chào mừng đến với KaviorStoreKeyBroad \n Đăng kí</string>
     <string name="hint_username_login">Tên tài khoản</string>
     <string name="hint_password_login">Mật khẩu</string>
     <string name="content_des_chat">Đến tin nhắn</string>
     <string name="content_des_cart">Đến giỏ hàng</string>
     <string name="content_des_logo">Logo Coolmate</string>
-    <string name="short_des_story"><b>Coolmate sinh ra để làm gì?</b>\n\nPhải chia sẻ thật là rất nhiều người đặt câu hỏi này cho đội ngũ Coolmate, nhưng gần đây…</string>
+    <string name="short_des_story"><b>KaviorStore sinh ra để làm gì?</b>\n\nPhải chia sẻ thật là rất nhiều người đặt câu hỏi này cho đội ngũ, nhưng gần đây…</string>
     <string name="more">Xem thêm</string>
     <string name="des">Image Description</string>
     <string name="title_story">Câu chuyện</string>

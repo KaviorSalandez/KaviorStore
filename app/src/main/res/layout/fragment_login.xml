@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_login_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -67,29 +68,45 @@
         app:layout_constraintTop_toBottomOf="@id/idEdtPassword" />
 
     <Button
-        android:id="@+id/idBtnLoginByFB"
+        android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idBtnLogin"
+        android:layout_marginTop="36dp"
+        android:text="Register"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:text="Signup with Facebook"
-        android:drawableLeft="@drawable/ic_fb"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/idBtnLogin" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idBtnLogin"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/idBtnLoginByGmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/idBtnLoginByFB"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:text="Signup with Gmail"
-        android:drawableLeft="@drawable/ic_gmail"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/idBtnLoginByFB" />
+    <!--    <Button-->
+<!--        android:id="@+id/idBtnLoginByFB"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/idBtnLogin"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:text="Signup with Facebook"-->
+<!--        android:drawableLeft="@drawable/ic_fb"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/idBtnLogin" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/idBtnLoginByGmail"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/idBtnLoginByFB"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:text="Signup with Gmail"-->
+<!--        android:drawableLeft="@drawable/ic_gmail"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/idBtnLoginByFB" />-->
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

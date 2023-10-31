@@ -90,13 +90,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     private void initSlider() {
         ArrayList<String> imageSlider = new ArrayList<>();
-        imageSlider.add("https://mcdn.coolmate.me/image/December2022/shop-ban-ao-thun-tron-tai-TPHCM-576_723.jpg");
-        imageSlider.add("https://mcdn.coolmate.me/image/May2023/hot-goi-y-12-shop-do-tap-gym-nam-ha-noi-chat-luong-gia-tot-1691_250.jpg");
-        imageSlider.add("https://cdn-www.vinid.net/be1bc24a-20200218_appvinid_bannerweb_coolmate-1.jpg");
-        imageSlider.add("https://media.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/April2023/summerMask_group.jpg");
+        imageSlider.add("https://akkogear.com.vn/wp-content/uploads/2020/06/ban-phim-co-akko-3108-v2-monets-pond-akko-switch-v2-05.jpg?fbclid=IwAR3octFx6FYcsBfmWMlJvNceIFwyvjzBT1vmKG69Z5fwWT_JnCmanqAN6fo");
+        imageSlider.add("https://akkogear.com.vn/wp-content/uploads/2023/03/ban-phim-akko-5108b-plus-demon-slayer-kamado-tanjirou-12-800x800.jpg");
+        imageSlider.add("https://akkogear.com.vn/wp-content/uploads/2022/12/kit-ban-phim-monsgeek-m1-qmk-03.jpg");
+        imageSlider.add("https://akkogear.com.vn/wp-content/uploads/2021/03/ban-phim-akko-3068-v2-2021-year-of-the-ox-04.jpg");
         imageSlider.add("https://cafefcdn.com/203337114487263232/2021/5/3/shark-tank-4-tap-1-coolmate-7-16200045691081324100286.jpg");
-        imageSlider.add("https://mcdn.coolmate.me/image/July2023/mceclip0_67.jpg");
-        imageSlider.add("https://mcdn.coolmate.me/image/August2022/dac-tinh-ao-ba-lo.jpg");
+        imageSlider.add("https://akkogear.com.vn/wp-content/uploads/2020/12/AKKO_3084_Silent_Bluetooth_00-800x800.jpg");
+        imageSlider.add("https://akkogear.com.vn/wp-content/uploads/2020/08/akko-3096-midnight-03-800x800.jpg");
         ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
         SliderView sliderView = binding.imageSlider;
         for (String imageItem : imageSlider) {
