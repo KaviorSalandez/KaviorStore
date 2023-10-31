@@ -65,6 +65,18 @@ public class LoginFragment extends Fragment {
                 loginUser(userName, userName);
             }
         });
+
+
+        binding.btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment registerFragment = new RegisterFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_login_id , registerFragment );
+                transaction.addToBackStack(null); // Để có khả năng quay lại fragment login
+                transaction.commit();
+            }
+        });
     }
 
     private void loginUser(String userName1, String password1) {
