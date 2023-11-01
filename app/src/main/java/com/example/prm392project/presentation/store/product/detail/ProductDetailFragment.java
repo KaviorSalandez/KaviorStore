@@ -6,23 +6,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
+import com.example.prm392project.R;
 import com.example.prm392project.common.SliderData;
 import com.example.prm392project.common.SliderVerticalAdapter;
+import com.example.prm392project.common.api.ApiService;
 import com.example.prm392project.databinding.LayoutProductBinding;
+import com.example.prm392project.model.Product;
+import com.example.prm392project.presentation.store.product.ProductItemAdapter;
 import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductDetailFragment extends Fragment {
 
     LayoutProductBinding binding;
+    Product pDetail = new Product();
 
     @Nullable
     @Override
@@ -36,9 +49,18 @@ public class ProductDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
        // initSlider();
         // fake
-        Glide.with(this).load("https://vn-live-01.slatic.net/p/7ccb520854e72629dcd779974dd7afb1.jpg").into(binding.imageProductSlider);
-        GridView gridview = binding.colorPick;
-        gridview.setAdapter(new ColorAdapter(requireContext()));
+
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            String value = bundle.getString("pId");
+            getProductDetail(Integer.parseInt(value));
+
+        }
+        else{
+            Toast.makeText(requireContext(), "Not found!",Toast.LENGTH_SHORT).show();
+        }
+
 
         binding.back.setOnClickListener(it -> getParentFragmentManager().popBackStack());
     }
@@ -56,4 +78,25 @@ public class ProductDetailFragment extends Fragment {
 //        ImageView imgView = binding.imageProductSlider;
 //
 //    }
+private void getProductDetail(int id) {
+    ApiService.apiService.getProductById(id)
+            .enqueue(new Callback<Product>() {
+
+                @Override
+                public void onResponse(Call<Product> call, Response<Product> response) {
+                    pDetail = response.body();
+                    Glide.with(requireContext()).load(pDetail.getImageUrl()).into(binding.imageProductSlider);
+                    binding.productName.setText(pDetail.getProductName());
+                    binding.productPrice.setText(String.valueOf(pDetail.getPrice()));
+                    binding.productQuantity.setText(String.valueOf("Số lượng: " +pDetail.getQuantity()));
+                    binding.productDescription.setText(pDetail.getDescription());
+
+                }
+
+                @Override
+                public void onFailure(Call<Product> call, Throwable t) {
+
+                }
+            });
+}
 }
