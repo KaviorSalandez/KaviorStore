@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.text.TextUtils;
@@ -15,8 +16,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.prm392project.R;
+import com.example.prm392project.common.api.ApiService;
 import com.example.prm392project.databinding.FragmentLoginBinding;
 import com.example.prm392project.databinding.FragmentRegisterBinding;
+import com.example.prm392project.model.Product;
+import com.example.prm392project.model.User;
+import com.example.prm392project.presentation.store.product.ProductItemAdapter;
+import com.example.prm392project.presentation.store.product.detail.ProductDetailFragment;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +66,25 @@ public class RegisterFragment extends Fragment {
         EditText username = binding.idEdtUserName;
         EditText password = binding.idEdtPassword;
         EditText confirmpassword = binding.idEdtPasswordConfirm;
+
+        binding.idBtnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String p = password.getText().toString();
+                String p2 = confirmpassword.getText().toString();
+                if(p.equals(p2)){
+                    Toast.makeText(requireContext(), "Mật khẩu đã khớp", Toast.LENGTH_SHORT).show();
+                    // call api to register account
+                    User userRegister = new User();
+                }
+                else{
+                    Toast.makeText(requireContext(), "Mật khẩu confirm không khớp", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
         binding.btnGoToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,8 +93,14 @@ public class RegisterFragment extends Fragment {
                 transaction.replace(R.id.fragment_register_id , loginFragment );
                 transaction.addToBackStack(null); // Để có khả năng quay lại fragment login
                 transaction.commit();
+
             }
         });
+
+    }
+
+
+    private void addUserByAPI() {
 
     }
 }

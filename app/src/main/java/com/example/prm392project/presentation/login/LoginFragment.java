@@ -65,7 +65,14 @@ public class LoginFragment extends Fragment {
                 loginUser(userName, userName);
             }
         });
-
+        binding.idBtnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = userNameEdt.getText().toString();
+                String pass= passwordEdt.getText().toString();
+                Toast.makeText(requireContext(), "name :"+name+" pass : "+pass, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
