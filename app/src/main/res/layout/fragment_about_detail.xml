@@ -63,7 +63,7 @@
             app:layout_constraintTop_toBottomOf="@id/aboutTitle"
             app:layout_constraintStart_toStartOf="@id/aboutTitle"
             android:layout_marginTop="8dp"
-            android:text="Màu sắc: Xanh biển"/>
+            android:text="Số lượng: Xanh biển"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

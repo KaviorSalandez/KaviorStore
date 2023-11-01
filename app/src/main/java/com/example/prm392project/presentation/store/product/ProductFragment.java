@@ -104,6 +104,11 @@ public class ProductFragment extends Fragment {
                         ProductItemAdapter adapter = new ProductItemAdapter(requireContext(), productList);
                         recyclerProduct.setAdapter(adapter);
                         adapter.setOnClickListener((position, p) -> {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("pId", String.valueOf(p.getId()));
+                            ProductDetailFragment pdf = new ProductDetailFragment();
+                            pdf.setArguments(bundle);
                             FragmentManager fm = requireActivity().getSupportFragmentManager();
                             FragmentTransaction transaction = fm.beginTransaction().setCustomAnimations(
                                     R.anim.slide_in,  // enter
@@ -111,7 +116,7 @@ public class ProductFragment extends Fragment {
                                     R.anim.fade_in,   // popEnter
                                     R.anim.slide_out  // popExit
                             );
-                            transaction.replace(R.id.wrapper, new ProductDetailFragment(), null).addToBackStack(null).commit();
+                            transaction.replace(R.id.wrapper, pdf, null).addToBackStack(null).commit();
                         });
                     }
 

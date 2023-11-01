@@ -2,6 +2,7 @@ package com.example.prm392project.presentation.store.product;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import android.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.example.prm392project.R;
 import com.example.prm392project.model.Product;
+import com.example.prm392project.presentation.store.product.detail.ProductDetailFragment;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.ViewHolder> {
@@ -40,7 +46,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product p = productArrayList.get(position);
-     //   Glide.with(context).load(p.getImageUrl()).into(holder.productThumb);
+        Glide.with(context).load(p.getImageUrl()).into(holder.productThumb);
         holder.productId.setText(String.valueOf(p.getId()));
         holder.productName.setText(p.getProductName());
         holder.productPrice.setText(String.valueOf(p.getPrice()));
