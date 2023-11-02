@@ -9,6 +9,7 @@ import android.view.WindowManager;
 
 import com.example.prm392project.R;
 import com.example.prm392project.databinding.ActivityMainBinding;
+import com.example.prm392project.presentation.login.LoginFragment;
 import com.example.prm392project.presentation.store.PagerFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +27,6 @@ public class MainActivity extends AppCompatActivity {
         );
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        transaction.add(R.id.wrapper, new PagerFragment(), null).commit();
+        transaction.add(R.id.wrapper, new LoginFragment(), null).commit();
     }
 }

@@ -50,27 +50,30 @@ public class LoginFragment extends Fragment {
         EditText userNameEdt = binding.idEdtUserName;
         EditText passwordEdt = binding.idEdtPassword;
 
-        binding.idBtnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-
-            public void onClick(View view) {
-                String userName = userNameEdt.getText().toString();
-                String password = passwordEdt.getText().toString();
-
-                if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
-                    Toast.makeText(requireContext(), "Please enter user name and password", Toast.LENGTH_SHORT).show();
-                } else {
-                    loginUser(userName, password);
-                }
-                loginUser(userName, userName);
-            }
-        });
+//        binding.idBtnLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//
+//            public void onClick(View view) {
+//                String userName = userNameEdt.getText().toString();
+//                String password = passwordEdt.getText().toString();
+//
+//                if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
+//                    Toast.makeText(requireContext(), "Please enter user name and password", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    loginUser(userName, password);
+//                }
+//                loginUser(userName, userName);
+//            }
+//        });
         binding.idBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String name = userNameEdt.getText().toString();
                 String pass= passwordEdt.getText().toString();
                 Toast.makeText(requireContext(), "name :"+name+" pass : "+pass, Toast.LENGTH_SHORT).show();
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.add(R.id.wrapper, new PagerFragment(), null).commit();
             }
         });
 
