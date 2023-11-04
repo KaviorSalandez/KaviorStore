@@ -18,8 +18,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.prm392project.R;
+import com.example.prm392project.common.api.ApiService;
 import com.example.prm392project.databinding.FragmentLoginBinding;
 import com.example.prm392project.presentation.store.PagerFragment;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
     public static String USER_FILE_NAME = "User";
@@ -35,6 +40,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -50,32 +56,32 @@ public class LoginFragment extends Fragment {
         EditText userNameEdt = binding.idEdtUserName;
         EditText passwordEdt = binding.idEdtPassword;
 
-//        binding.idBtnLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//
-//            public void onClick(View view) {
-//                String userName = userNameEdt.getText().toString();
-//                String password = passwordEdt.getText().toString();
-//
-//                if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
-//                    Toast.makeText(requireContext(), "Please enter user name and password", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    loginUser(userName, password);
-//                }
-//                loginUser(userName, userName);
-//            }
-//        });
         binding.idBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                String name = userNameEdt.getText().toString();
-                String pass= passwordEdt.getText().toString();
-                Toast.makeText(requireContext(), "name :"+name+" pass : "+pass, Toast.LENGTH_SHORT).show();
 
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.add(R.id.wrapper, new PagerFragment(), null).commit();
+            public void onClick(View view) {
+                String userName = userNameEdt.getText().toString();
+                String password = passwordEdt.getText().toString();
+
+                if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
+                    Toast.makeText(requireContext(), "Please enter user name and password", Toast.LENGTH_SHORT).show();
+                } else {
+                    //login(userName, password);
+                    //loginUser(userName, password);
+                }
+                loginUser(userName, userName);
             }
         });
+//        binding.idBtnLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String name = userNameEdt.getText().toString();
+//                String pass= passwordEdt.getText().toString();
+//
+//                //login(name, pass);
+//                //Toast.makeText(requireContext(), "name :"+name+" pass : "+pass, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,4 +111,21 @@ public class LoginFragment extends Fragment {
             Toast.makeText(requireActivity(), "làm lại đi", Toast.LENGTH_LONG).show();
         }
     }
+
+    private void login(String username, String password){
+        ApiService.apiService.login(username, password)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("token", response.body());
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        System.out.println(t);
+                        Toast.makeText(requireContext(), "Tên đăng nhập hoặc mật khẩu sai!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+   }
 }
