@@ -12,12 +12,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiService {
 
     Gson gson = new GsonBuilder()
+            .setLenient()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
 
@@ -35,5 +37,10 @@ public interface ApiService {
 
     @POST("auth/register")
     Call<User> register(@Body User user);
+
+    @GET("auth/profile")
+    Call<User> getLoggedInUserProfile(@Header("Authorization") String authHeader);
+    @GET("auth/login")
+    Call<String> login(@Query("username") String username, @Query("password") String password);
 
 }
