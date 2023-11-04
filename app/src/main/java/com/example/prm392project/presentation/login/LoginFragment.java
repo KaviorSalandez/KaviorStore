@@ -66,10 +66,8 @@ public class LoginFragment extends Fragment {
                 if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
                     Toast.makeText(requireContext(), "Please enter user name and password", Toast.LENGTH_SHORT).show();
                 } else {
-                    //login(userName, password);
-                    //loginUser(userName, password);
+                    login(userName, password);
                 }
-                loginUser(userName, userName);
             }
         });
 //        binding.idBtnLogin.setOnClickListener(new View.OnClickListener() {
@@ -95,22 +93,22 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    private void loginUser(String userName1, String password1) {
-        SharedPreferences modePreferences = requireActivity().getSharedPreferences(USER_FILE_NAME, Context.MODE_PRIVATE);
-        String saveUsername = modePreferences.getString(NAME_KEY, "123");
-        String savePassword = modePreferences.getString(PASS_KEY, "123");
-        if (userName1 != null && password1 != null && userName1.equals(saveUsername) && password1.equals(savePassword)) {
-
-            modePreferences.edit().putString(NAME_KEY, userName1).apply();
-            modePreferences.edit().putString(PASS_KEY, password1).apply();
-            FragmentManager fm = requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = fm.beginTransaction();
-            transaction.replace(R.id.wrapper, new PagerFragment(), null).commit();
-
-        } else {
-            Toast.makeText(requireActivity(), "làm lại đi", Toast.LENGTH_LONG).show();
-        }
-    }
+//    private void loginUser(String userName1, String password1) {
+//        SharedPreferences modePreferences = requireActivity().getSharedPreferences(USER_FILE_NAME, Context.MODE_PRIVATE);
+//        String saveUsername = modePreferences.getString(NAME_KEY, "123");
+//        String savePassword = modePreferences.getString(PASS_KEY, "123");
+//        if (userName1 != null && password1 != null && userName1.equals(saveUsername) && password1.equals(savePassword)) {
+//
+//            modePreferences.edit().putString(NAME_KEY, userName1).apply();
+//            modePreferences.edit().putString(PASS_KEY, password1).apply();
+//            FragmentManager fm = requireActivity().getSupportFragmentManager();
+//            FragmentTransaction transaction = fm.beginTransaction();
+//            transaction.replace(R.id.wrapper, new PagerFragment(), null).commit();
+//
+//        } else {
+//            Toast.makeText(requireActivity(), "làm lại đi", Toast.LENGTH_LONG).show();
+//        }
+//    }
 
     private void login(String username, String password){
         ApiService.apiService.login(username, password)
@@ -120,6 +118,9 @@ public class LoginFragment extends Fragment {
                         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("token", response.body());
+                        editor.commit();
+                        String token = sharedPreferences.getString("token", "");
+                        Toast.makeText(requireContext(), "Đăng nhập thành công.", Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
