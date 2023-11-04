@@ -66,10 +66,10 @@ public class LoginFragment extends Fragment {
                 if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
                     Toast.makeText(requireContext(), "Please enter user name and password", Toast.LENGTH_SHORT).show();
                 } else {
-                    //login(userName, password);
+                    login(userName, password);
                     //loginUser(userName, password);
                 }
-                loginUser(userName, userName);
+//
             }
         });
 //        binding.idBtnLogin.setOnClickListener(new View.OnClickListener() {
@@ -120,11 +120,16 @@ public class LoginFragment extends Fragment {
                         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("token", response.body());
+                        Toast.makeText(requireActivity(), "done", Toast.LENGTH_SHORT).show();
+                        editor.commit();
+                        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.wrapper, new PagerFragment(), null).commit();
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
                         System.out.println(t);
                         Toast.makeText(requireContext(), "Tên đăng nhập hoặc mật khẩu sai!", Toast.LENGTH_SHORT).show();
+
                     }
                 });
    }
