@@ -32,6 +32,7 @@ public class LoginFragment extends Fragment {
     public static String PASS_KEY = "password";
 
     private FragmentLoginBinding binding;
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -66,10 +67,8 @@ public class LoginFragment extends Fragment {
                 if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
                     Toast.makeText(requireContext(), "Please enter user name and password", Toast.LENGTH_SHORT).show();
                 } else {
-                    //login(userName, password);
-                    //loginUser(userName, password);
+                    login(userName, password);
                 }
-                loginUser(userName, userName);
             }
         });
 //        binding.idBtnLogin.setOnClickListener(new View.OnClickListener() {
@@ -88,44 +87,52 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 Fragment registerFragment = new RegisterFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_login_id , registerFragment );
+                transaction.replace(R.id.fragment_login_id, registerFragment);
                 transaction.addToBackStack(null); // Để có khả năng quay lại fragment login
                 transaction.commit();
             }
         });
     }
 
-    private void loginUser(String userName1, String password1) {
-        SharedPreferences modePreferences = requireActivity().getSharedPreferences(USER_FILE_NAME, Context.MODE_PRIVATE);
-        String saveUsername = modePreferences.getString(NAME_KEY, "123");
-        String savePassword = modePreferences.getString(PASS_KEY, "123");
-        if (userName1 != null && password1 != null && userName1.equals(saveUsername) && password1.equals(savePassword)) {
+//    private void loginUser(String userName1, String password1) {
+//        SharedPreferences modePreferences = requireActivity().getSharedPreferences(USER_FILE_NAME, Context.MODE_PRIVATE);
+//        String saveUsername = modePreferences.getString(NAME_KEY, "123");
+//        String savePassword = modePreferences.getString(PASS_KEY, "123");
+//        if (userName1 != null && password1 != null && userName1.equals(saveUsername) && password1.equals(savePassword)) {
+//
+//            modePreferences.edit().putString(NAME_KEY, userName1).apply();
+//            modePreferences.edit().putString(PASS_KEY, password1).apply();
+//            FragmentManager fm = requireActivity().getSupportFragmentManager();
+//            FragmentTransaction transaction = fm.beginTransaction();
+//            transaction.replace(R.id.wrapper, new PagerFragment(), null).commit();
+//
+//        } else {
+//            Toast.makeText(requireActivity(), "làm lại đi", Toast.LENGTH_LONG).show();
+//        }
+//    }
 
-            modePreferences.edit().putString(NAME_KEY, userName1).apply();
-            modePreferences.edit().putString(PASS_KEY, password1).apply();
-            FragmentManager fm = requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = fm.beginTransaction();
-            transaction.replace(R.id.wrapper, new PagerFragment(), null).commit();
-
-        } else {
-            Toast.makeText(requireActivity(), "làm lại đi", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void login(String username, String password){
+    private void login(String username, String password) {
         ApiService.apiService.login(username, password)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("token", response.body());
+                        if (response.body() != null) {
+                            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("token", response.body());
+                            editor.commit();
+                            String token = sharedPreferences.getString("token", "");
+                            Toast.makeText(requireContext(), "Đăng nhập thành công.", Toast.LENGTH_SHORT).show();
+                            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.wrapper, new PagerFragment(), null).commit();
+                        }
                     }
+
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
                         System.out.println(t);
                         Toast.makeText(requireContext(), "Tên đăng nhập hoặc mật khẩu sai!", Toast.LENGTH_SHORT).show();
                     }
                 });
-   }
+    }
 }
