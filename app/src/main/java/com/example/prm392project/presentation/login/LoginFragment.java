@@ -32,6 +32,7 @@ public class LoginFragment extends Fragment {
     public static String PASS_KEY = "password";
 
     private FragmentLoginBinding binding;
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -86,7 +87,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 Fragment registerFragment = new RegisterFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_login_id , registerFragment );
+                transaction.replace(R.id.fragment_login_id, registerFragment);
                 transaction.addToBackStack(null); // Để có khả năng quay lại fragment login
                 transaction.commit();
             }
@@ -110,23 +111,28 @@ public class LoginFragment extends Fragment {
 //        }
 //    }
 
-    private void login(String username, String password){
+    private void login(String username, String password) {
         ApiService.apiService.login(username, password)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("token", response.body());
-                        editor.commit();
-                        String token = sharedPreferences.getString("token", "");
-                        Toast.makeText(requireContext(), "Đăng nhập thành công.", Toast.LENGTH_SHORT).show();
+                        if (response.body() != null) {
+                            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("token", response.body());
+                            editor.commit();
+                            String token = sharedPreferences.getString("token", "");
+                            Toast.makeText(requireContext(), "Đăng nhập thành công.", Toast.LENGTH_SHORT).show();
+                            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.wrapper, new PagerFragment(), null).commit();
+                        }
                     }
+
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
                         System.out.println(t);
                         Toast.makeText(requireContext(), "Tên đăng nhập hoặc mật khẩu sai!", Toast.LENGTH_SHORT).show();
                     }
                 });
-   }
+    }
 }

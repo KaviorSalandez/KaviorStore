@@ -88,15 +88,14 @@ public class RegisterFragment extends Fragment {
                                 public void onResponse(Call<Void> call, Response<Void> response) {
                                     if (response.code() == 200) {
                                         Toast.makeText(requireContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                        Fragment loginFragment = new LoginFragment();
+                                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                        transaction.replace(R.id.fragment_register_id , loginFragment );
+                                        transaction.addToBackStack(null); // Để có khả năng quay lại fragment login
+                                        transaction.commit();
                                     } else if(response.code() == 409){
                                         Toast.makeText(requireContext(), "Tên đăng nhập đã tồn tại", Toast.LENGTH_SHORT).show();
                                     }
-
-                                    Fragment loginFragment = new LoginFragment();
-                                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                    transaction.replace(R.id.fragment_register_id , loginFragment );
-                                    transaction.addToBackStack(null); // Để có khả năng quay lại fragment login
-                                    transaction.commit();
                                 }
                                 @Override
                                 public void onFailure(Call<Void> call, Throwable t) {
