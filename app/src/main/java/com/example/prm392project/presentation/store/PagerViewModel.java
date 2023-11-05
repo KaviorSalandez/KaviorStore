@@ -27,7 +27,7 @@ public class PagerViewModel extends ViewModel {
                         null
                 ),
                 new Tab(
-                        Type.FAVORITE,
+                        Type.Cart,
                         R.string.favorite,
                         R.drawable.ic_favorite_selector,
                         null
@@ -51,7 +51,7 @@ public class PagerViewModel extends ViewModel {
     /* **********************************************************************
      * Class
      ********************************************************************** */
-    public enum Type {HOME, PRODUCT, FAVORITE, SETTING}
+    public enum Type {HOME, PRODUCT, FAVORITE, Cart,SETTING}
 
     public static class Tab {
         public final Type type;

@@ -19,6 +19,7 @@
     <string name="short_des_story"><b>KaviorStore sinh ra để làm gì?</b>\n\nPhải chia sẻ thật là rất nhiều người đặt câu hỏi này cho đội ngũ, nhưng gần đây…</string>
     <string name="more">Xem thêm</string>
     <string name="des">Image Description</string>
+    <string name="cart_fragment">"Giỏ hàng "</string>
     <string name="title_story">Câu chuyện</string>
     <string name="title_cus_service">Dịch vụ khách hàng</string>
     <string name="title_staff">Nhân viên</string>
