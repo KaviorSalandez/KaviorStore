@@ -20,7 +20,11 @@ import com.example.prm392project.R;
 import com.example.prm392project.common.SliderData;
 import com.example.prm392project.common.SliderHorizontalAdapter;
 import com.example.prm392project.databinding.FragmentHomeBinding;
+
+import com.example.prm392project.presentation.store.chat.ChatActivity;
+
 import com.example.prm392project.presentation.store.cart.CartFragment;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -64,6 +68,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             Uri uri = Uri.parse("https://www.coolmate.me/"); // missing 'http://' will cause crashed
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
+        });
+        binding.chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                startActivity(intent);
+            }
         });
 
         moveToDetail(binding.storyHeader, binding.storyTitle, binding.storyShortDes);
@@ -144,8 +155,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        LatLng location = new LatLng(20.961153698330357, 105.7952372224912); // Ví dụ: Tọa độ TP.HCM
-        googleMap.addMarker(new MarkerOptions().position(location).title("Coolmate.me in Hanoi"));
+
+        LatLng location = new LatLng(21.013180426269333, 105.52654631092821); // Ví dụ: Tọa độ TP.HCM
+        googleMap.addMarker(new MarkerOptions().position(location).title("Kavior Store in Ha Noi"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15)); // Zoom vào vị trí cụ thể
     }
 

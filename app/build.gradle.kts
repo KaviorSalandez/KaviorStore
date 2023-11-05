@@ -54,4 +54,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.1.0")
     implementation("com.squareup.retrofit2:converter-gson:2.1.0")
 
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("com.intuit.sdp:sdp-android:1.1.0")
+
 }
