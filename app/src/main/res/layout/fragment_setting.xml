@@ -15,7 +15,7 @@
             android:id="@+id/user_information"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/bg_ui_default"
+            android:background="@drawable/a1"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -34,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="noone in the hood"
+                android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +45,8 @@
                 android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="nooneinthehood@gmail.com"
+                android:text="kaviorstore@gmail.com"
+                android:textColor="@color/white"
                 android:textSize="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/avatar"
