@@ -63,17 +63,16 @@ public class ChatActivity extends AppCompatActivity {
                 if (message.isEmpty()) {
                     Toast.makeText(ChatActivity.this, "Enter message first!", Toast.LENGTH_SHORT).show();
                 }
-                textmsg.setText("");
-                Chat currentchat = new Chat(message);
-//                messageArrayList.add(currentchat);
+                else{
+                    textmsg.setText("");
+                    Chat currentchat = new Chat(message);
 
-//
-//                mesAdapter.notifyDataSetChanged();
+                    messageArrayList.add(currentchat);
+                    ChatShareRfr.saveItems(getApplicationContext(), messageArrayList);
+                    mesAdapter.notifyDataSetChanged();
+                }
 
-                messageArrayList.add(currentchat);
-                ChatShareRfr.saveItems(getApplicationContext(), messageArrayList);
-//                mesAdapter.notifyDataSetChanged();
-                Toast.makeText(ChatActivity.this, messageArrayList.get(0).getMsg(), Toast.LENGTH_SHORT).show();
+
             }
         });
         backbtn.setOnClickListener(new View.OnClickListener() {

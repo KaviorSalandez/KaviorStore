@@ -1,6 +1,7 @@
 package com.example.prm392project.presentation.store.chat;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392project.R;
 import com.example.prm392project.model.Chat;
+import com.example.prm392project.presentation.store.product.ProductItemAdapter;
 
 import java.util.List;
 
@@ -25,34 +27,40 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.senderVi
     public MessageAdapter(Context context, List<Chat> messageList) {
         this.context = context;
         this.messageList = messageList;
-        notifyDataSetChanged();
+
     }
 
 
     @NonNull
     @Override
     public senderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.activity_chat, parent, false);
-        return new senderViewHolder(view);
+//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_chat, parent, false);
+//        return new senderViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.sender_layout, parent, false);
+        return new MessageAdapter.senderViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull senderViewHolder holder, int position) {
-        final Chat mes = messageList.get(position);
-        holder.msgtxt.setText(mes.getMsg());
+         Chat mes = messageList.get(position);
+        Log.d("Texttest", "onBindViewHolder: " + holder.mesTxt);
+        holder.mesTxt.setText(mes.getMsg());
+
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        if(messageList == null) return 0;
+        return  messageList.size();
     }
 
 
-    public class senderViewHolder extends RecyclerView.ViewHolder {
-        TextView msgtxt;
+    public static class senderViewHolder extends RecyclerView.ViewHolder {
+        private TextView mesTxt;
         public senderViewHolder(@NonNull View itemView) {
             super(itemView);
-            msgtxt = itemView.findViewById(R.id.msgsendertyp);
+            mesTxt = itemView.findViewById(R.id.msgSend);
 
         }
     }

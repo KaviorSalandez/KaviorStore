@@ -29,7 +29,6 @@
         android:layout_below="@+id/ll1"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="-7dp"
-        android:background="@color/blue"
         android:padding="@dimen/_10sdp" />
 
     <LinearLayout
