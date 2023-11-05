@@ -25,4 +25,6 @@
     <string name="title_story">Câu chuyện</string>
     <string name="title_cus_service">Dịch vụ khách hàng</string>
     <string name="title_staff">Nhân viên</string>
+    <string name="channel_name">Channel 1</string>
+    <string name="channel_description">This is channel 1</string>
 </resources>
