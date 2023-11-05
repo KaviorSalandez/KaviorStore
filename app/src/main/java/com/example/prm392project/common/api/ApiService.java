@@ -5,13 +5,16 @@ import com.example.prm392project.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.net.HttpCookie;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -35,11 +38,11 @@ public interface ApiService {
     @GET("product")
     Call<List<Product>> getAllProducts();
 
-    @POST("auth/register")
-    Call<User> register(@Body User user);
-
     @GET("auth/profile")
     Call<User> getLoggedInUserProfile(@Header("Authorization") String authHeader);
+
+    @POST("auth/register")
+    Call<Void> register(@Body User user);
     @GET("auth/login")
     Call<String> login(@Query("username") String username, @Query("password") String password);
 
