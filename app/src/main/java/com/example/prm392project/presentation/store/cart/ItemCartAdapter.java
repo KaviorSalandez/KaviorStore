@@ -2,6 +2,7 @@ package com.example.prm392project.presentation.store.cart;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +32,12 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
     private Context context;
     private List<ItemCart> poArrayList;
     private OnClickListener onClickListener;
+    private IOnClickQuantity iOnClickQuantity;
 
-    public ItemCartAdapter(Context context, List<ItemCart> poArrayList) {
+    public ItemCartAdapter(Context context, List<ItemCart> poArrayList, IOnClickQuantity iOnClickQuantity) {
         this.context = context;
         this.poArrayList = poArrayList;
+        this.iOnClickQuantity = iOnClickQuantity;
     }
 
     @NonNull
@@ -53,6 +56,48 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
         holder.poName.setText(p.getName());
         holder.poPrice.setText(String.valueOf(p.getPrice()));
         holder.poNumber.setText(String.valueOf(p.getQuantity()));
+        holder.ibMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                p.setQuantity(p.getQuantity() - 1);
+                if(p.getQuantity() < 1){
+                    p.setQuantity(1);
+                }
+                holder.poNumber.setText(String.valueOf(p.getQuantity()));
+
+                List<ItemCart> poList = SharePreferenceManager.getItems(context);
+
+                for (ItemCart i : poList
+                ) {
+                    if (p.ProductId == i.ProductId) {
+                        i.setQuantity(p.getQuantity());
+                    }
+                }
+                SharePreferenceManager.saveItems(context, poList);
+                iOnClickQuantity.onClickListener();
+            }
+        });
+
+        holder.ibPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                p.setQuantity(p.getQuantity() + 1);
+
+                holder.poNumber.setText(String.valueOf(p.getQuantity()));
+
+                List<ItemCart> poList = SharePreferenceManager.getItems(context);
+
+                for (ItemCart i : poList
+                ) {
+                    if (p.ProductId == i.ProductId) {
+                        i.setQuantity(p.getQuantity());
+                    }
+                }
+                SharePreferenceManager.saveItems(context, poList);
+                iOnClickQuantity.onClickListener();
+            }
+        });
 
     }
 
@@ -74,6 +119,8 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
         private final ImageView poImage;
         private final TextView poName;
         private final TextView poPrice;
+        private final ImageButton ibMinus;
+        private final ImageButton ibPlus;
         private EditText poNumber;
 
         public ViewHolder(@NonNull View itemView) {
@@ -82,6 +129,8 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
             poName = itemView.findViewById(R.id.po_name);
             poPrice = itemView.findViewById(R.id.po_price);
             poNumber = itemView.findViewById(R.id.po_count);
+            ibMinus = itemView.findViewById(R.id.minus_po);
+            ibPlus = itemView.findViewById(R.id.bonus_po);
 
         }
     }

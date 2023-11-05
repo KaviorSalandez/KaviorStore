@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +44,8 @@ public class CartFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
@@ -59,13 +62,48 @@ public class CartFragment extends Fragment {
         binding.back.setOnClickListener(it -> getParentFragmentManager().popBackStack());
         recyclerCart = binding.cartList;
         List<ItemCart> poList = SharePreferenceManager.getItems(requireContext());
+
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+
+                /*/ / Lấy vị trí của mục được di chuyển và mục đích đến
+                int fromPosition = viewHolder.getAdapterPosition();
+                int toPosition = target.getAdapterPosition();
+
+                // Di chuyển mục trong Adapter
+                mAdapter.onItemMove(fromPosition, toPosition);*/
+
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                // Lấy vị trí của item bị trượt
+                int position = viewHolder.getAdapterPosition();
+                poList.remove(position);
+                SharePreferenceManager.saveItems(requireContext(), poList);
+                adapter.notifyItemRemoved(position);
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerCart);
+
         long total = 0;
-        for (ItemCart i: poList
-             ) {
+        for (ItemCart i : poList
+        ) {
             total += i.price * i.quantity;
         }
-        binding.total.setText("Tổng tiền: "+String.valueOf(total)+"VND");
-        adapter = new ItemCartAdapter(requireContext(), poList);
+        binding.total.setText("Tổng tiền: " + String.valueOf(total) + "VND");
+
+        adapter = new ItemCartAdapter(requireContext(), poList, new IOnClickQuantity() {
+            @Override
+            public void onClickListener() {
+                binding.total.setText("Tổng tiền: " + String.valueOf(totalBill(poList)) + "VND");
+            }
+        });
         binding.cartList.setAdapter(adapter);
         binding.cartList.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.clearCart.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +114,15 @@ public class CartFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
-        
+
+    }
+
+    private long totalBill(List<ItemCart> list) {
+        long total = 0;
+        for (ItemCart i : list
+        ) {
+            total += i.price * i.quantity;
+        }
+        return total;
     }
 }

@@ -57,30 +57,30 @@ public class AboutDetailFragment extends Fragment {
         subTitle = view.findViewById(R.id.aboutSubTitle);
         back = view.findViewById(R.id.backHome);
 
-        initSlider(view);
-        back.setOnClickListener(it -> getParentFragmentManager().popBackStack());
+//        initSlider(view);
+//        back.setOnClickListener(it -> getParentFragmentManager().popBackStack());
 
     }
 
-    private void initSlider(View view) {
-        ArrayList<String> imageSlider = new ArrayList<>();
-        imageSlider.add("https://cf.shopee.vn/file/8353ca176db52037f00818ec85441ce2");
-        imageSlider.add("https://vn-test-11.slatic.net/p/f4debd693b9df0fb9531eca12350c015.png");
-        imageSlider.add("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0zT-vU-BxW_sZwQLfhZsDP0uGf1UAQ1_FMUit8aHBPxGQ-42ggKcHVzJcDCDufkqR1_K08nz6LXlFBvcwdyfbVCdlF9cLme81BBRscgh2c85Ox0U_1CTMhE0bxCl3x9V8HQe-aT5DDmIuX5coJ0iGc_KX8HZOd-s7mnReWL_KbwQgRV41FX5H0YSw/s1600/f05ce6b17e612d14baca06076986ebe5.jpg=w700");
-        imageSlider.add("https://img.ws.mms.shopee.vn/vn-11134201-7qukw-li6rwxeb03bmfe");
-        imageSlider.add("https://vn-live-01.slatic.net/p/7ccb520854e72629dcd779974dd7afb1.jpg");
-        imageSlider.add("https://vn-test-11.slatic.net/p/05224f5cb2d7fdde7fa2c2fd8a7c0d7f.png");
-        imageSlider.add("https://mcdn.coolmate.me/image/August2022/dac-tinh-ao-ba-lo.jpg");
-        ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
-        SliderView sliderView = view.findViewById(R.id.imageAboutSlider);
-        for (String imageItem : imageSlider) {
-            sliderDataArrayList.add(new SliderData(imageItem));
-        }
-        SliderVerticalAdapter adapter = new SliderVerticalAdapter(sliderDataArrayList);
-        sliderView.setAutoCycleDirection(SliderView.LAYOUT_DIRECTION_LTR);
-        sliderView.setSliderAdapter(adapter);
-        sliderView.setScrollTimeInSec(3);
-        sliderView.setAutoCycle(true);
-        sliderView.startAutoCycle();
-    }
+//    private void initSlider(View view) {
+//        ArrayList<String> imageSlider = new ArrayList<>();
+//        imageSlider.add("https://cf.shopee.vn/file/8353ca176db52037f00818ec85441ce2");
+//        imageSlider.add("https://vn-test-11.slatic.net/p/f4debd693b9df0fb9531eca12350c015.png");
+//        imageSlider.add("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0zT-vU-BxW_sZwQLfhZsDP0uGf1UAQ1_FMUit8aHBPxGQ-42ggKcHVzJcDCDufkqR1_K08nz6LXlFBvcwdyfbVCdlF9cLme81BBRscgh2c85Ox0U_1CTMhE0bxCl3x9V8HQe-aT5DDmIuX5coJ0iGc_KX8HZOd-s7mnReWL_KbwQgRV41FX5H0YSw/s1600/f05ce6b17e612d14baca06076986ebe5.jpg=w700");
+//        imageSlider.add("https://img.ws.mms.shopee.vn/vn-11134201-7qukw-li6rwxeb03bmfe");
+//        imageSlider.add("https://vn-live-01.slatic.net/p/7ccb520854e72629dcd779974dd7afb1.jpg");
+//        imageSlider.add("https://vn-test-11.slatic.net/p/05224f5cb2d7fdde7fa2c2fd8a7c0d7f.png");
+//        imageSlider.add("https://mcdn.coolmate.me/image/August2022/dac-tinh-ao-ba-lo.jpg");
+//        ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
+//        SliderView sliderView = view.findViewById(R.id.imageAboutSlider);
+//        for (String imageItem : imageSlider) {
+//            sliderDataArrayList.add(new SliderData(imageItem));
+//        }
+//        SliderVerticalAdapter adapter = new SliderVerticalAdapter(sliderDataArrayList);
+//        sliderView.setAutoCycleDirection(SliderView.LAYOUT_DIRECTION_LTR);
+//        sliderView.setSliderAdapter(adapter);
+//        sliderView.setScrollTimeInSec(3);
+//        sliderView.setAutoCycle(true);
+//        sliderView.startAutoCycle();
+//    }
 }
