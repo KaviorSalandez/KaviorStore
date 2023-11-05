@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.prm392project.R;
 import com.example.prm392project.databinding.FragmentSettingBinding;
 import com.example.prm392project.presentation.login.LoginFragment;
+import com.example.prm392project.presentation.store.chat.ChatShareRfr;
 
 public class SettingFragment extends Fragment {
     public static String USER_FILE_NAME = "User";
@@ -58,6 +59,10 @@ public class SettingFragment extends Fragment {
                 modePreferences.edit().putString(PASS_KEY, null).apply();
 //                Intent intent = new Intent(requireActivity(), LoginFragment.class);
 //                startActivity(intent);
+
+                // Xóa lịch sử chat trong sharepreference
+                ChatShareRfr.clearItems(requireContext());
+
                 FragmentManager fm = requireActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.replace(R.id.wrapper, new LoginFragment(), null).commit();
