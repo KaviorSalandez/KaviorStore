@@ -22,6 +22,7 @@ import com.example.prm392project.common.SliderVerticalAdapter;
 import com.example.prm392project.common.api.ApiService;
 import com.example.prm392project.control.SharePreferenceManager;
 import com.example.prm392project.databinding.LayoutProductBinding;
+import com.example.prm392project.model.ItemCart;
 import com.example.prm392project.model.Product;
 import com.example.prm392project.presentation.store.product.ProductItemAdapter;
 import com.smarteist.autoimageslider.SliderView;
@@ -38,6 +39,8 @@ public class ProductDetailFragment extends Fragment {
 
     LayoutProductBinding binding;
     Product pDetail = new Product();
+
+    public  boolean checkHaveCart = false;
     Context context;
     @Nullable
     @Override
@@ -97,8 +100,24 @@ private void getProductDetail(int id) {
                         @Override
                         public void onClick(View v) {
                             SharePreferenceManager share = new SharePreferenceManager();
-                            List<Product> savedItems = share.getItems(requireContext());
-                            savedItems.add(pDetail);
+                            List<ItemCart> savedItems = share.getItems(requireContext());
+                            ItemCart cart = new ItemCart();
+                            cart.Name = pDetail.productName;
+                            cart.Img = pDetail.getImageUrl();
+                            cart.ProductId = pDetail.getId();
+                            cart.price = pDetail.getPrice();
+                            cart.quantity = 1;
+                            for (ItemCart i : savedItems) {
+                                if(i.getProductId() == cart.ProductId){
+                                    i.quantity+=1;
+                                    checkHaveCart = true;
+                                }
+                            }
+                            if(checkHaveCart == true){
+                                checkHaveCart = false;
+                            }else {
+                                savedItems.add(cart);
+                            }
                             SharePreferenceManager.saveItems(requireContext(), savedItems);
                             Toast.makeText(requireContext(),"Số lượng trong giỏ hàng là:"+SharePreferenceManager.getItems(requireContext()).size(),Toast.LENGTH_SHORT);
                         }

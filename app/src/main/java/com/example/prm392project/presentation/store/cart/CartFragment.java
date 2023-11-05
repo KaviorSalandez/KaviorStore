@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392project.control.SharePreferenceManager;
 import com.example.prm392project.databinding.FragmentFavoriteBinding;
+import com.example.prm392project.model.ItemCart;
 import com.example.prm392project.model.Product;
 
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ public class CartFragment extends Fragment {
 
     private FragmentFavoriteBinding binding;
 
-    private List<Product> listCate = new ArrayList<>();
 
     private RecyclerView recyclerCart;
 
@@ -58,10 +58,18 @@ public class CartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding.back.setOnClickListener(it -> getParentFragmentManager().popBackStack());
         recyclerCart = binding.cartList;
-        List<Product> poList = SharePreferenceManager.getItems(requireContext());
+        List<ItemCart> poList = SharePreferenceManager.getItems(requireContext());
         adapter = new ItemCartAdapter(requireContext(), poList);
         binding.cartList.setAdapter(adapter);
         binding.cartList.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.clearCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharePreferenceManager.clearItems(requireContext());
+                poList.clear();
+                adapter.notifyDataSetChanged();
+            }
+        });
         
     }
 }

@@ -3,6 +3,7 @@ package com.example.prm392project.control;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.prm392project.model.ItemCart;
 import com.example.prm392project.model.Product;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -14,7 +15,7 @@ import java.util.List;
 public class SharePreferenceManager {
     private static final String PREF_NAME = "item_pref";
     private static final String KEY_ITEMS = "items";
-    public static void saveItems(Context context, List<Product> items) {
+    public static void saveItems(Context context, List<ItemCart> items) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -27,13 +28,13 @@ public class SharePreferenceManager {
     public SharePreferenceManager(){
 
     }
-    public static List<Product> getItems(Context context) {
+    public static List<ItemCart> getItems(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         String json = sharedPreferences.getString(KEY_ITEMS, null);
 
         if (json != null) {
             Gson gson = new Gson();
-            Type type = new TypeToken<List<Product>>() {}.getType();
+            Type type = new TypeToken<List<ItemCart>>() {}.getType();
             return gson.fromJson(json, type);
         }
 

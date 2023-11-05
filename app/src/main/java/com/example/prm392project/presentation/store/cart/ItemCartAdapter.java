@@ -11,11 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.prm392project.R;
+import com.example.prm392project.control.SharePreferenceManager;
+import com.example.prm392project.model.ItemCart;
 import com.example.prm392project.model.Product;
+import com.example.prm392project.presentation.store.home.AboutDetailFragment;
 
 import java.util.List;
 
@@ -23,10 +29,10 @@ import java.util.List;
 public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHolder> {
 
     private Context context;
-    private List<Product> poArrayList;
+    private List<ItemCart> poArrayList;
     private OnClickListener onClickListener;
 
-    public ItemCartAdapter(Context context, List<Product> poArrayList) {
+    public ItemCartAdapter(Context context, List<ItemCart> poArrayList) {
         this.context = context;
         this.poArrayList = poArrayList;
     }
@@ -42,24 +48,12 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
     @SuppressLint({"RecyclerView", "SetTextI18n"})
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product p = poArrayList.get(position);
-        Glide.with(context).load(p.getImageUrl()).into(holder.poImage);
-        holder.poName.setText(p.getProductName());
+        ItemCart p = poArrayList.get(position);
+        Glide.with(context).load(p.getImg()).into(holder.poImage);
+        holder.poName.setText(p.getName());
         holder.poPrice.setText(String.valueOf(p.getPrice()));
+        holder.poNumber.setText(String.valueOf(p.getQuantity()));
 
-
-        holder.poMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        holder.poBonus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
     public interface OnClickListener {
@@ -81,17 +75,14 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
         private final TextView poName;
         private final TextView poPrice;
         private EditText poNumber;
-        private final ImageButton poMinus;
-        private final ImageButton poBonus;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             poImage = itemView.findViewById(R.id.po_image);
             poName = itemView.findViewById(R.id.po_name);
             poPrice = itemView.findViewById(R.id.po_price);
-
             poNumber = itemView.findViewById(R.id.po_count);
-            poMinus = itemView.findViewById(R.id.minus_po);
-            poBonus = itemView.findViewById(R.id.bonus_po);
+
         }
     }
 }
