@@ -1,5 +1,6 @@
 package com.example.prm392project.presentation.store.product.detail;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,9 @@ import com.example.prm392project.R;
 import com.example.prm392project.common.SliderData;
 import com.example.prm392project.common.SliderVerticalAdapter;
 import com.example.prm392project.common.api.ApiService;
+import com.example.prm392project.control.SharePreferenceManager;
 import com.example.prm392project.databinding.LayoutProductBinding;
+import com.example.prm392project.model.ItemCart;
 import com.example.prm392project.model.Product;
 import com.example.prm392project.presentation.store.product.ProductItemAdapter;
 import com.smarteist.autoimageslider.SliderView;
@@ -37,6 +40,8 @@ public class ProductDetailFragment extends Fragment {
     LayoutProductBinding binding;
     Product pDetail = new Product();
 
+    public  boolean checkHaveCart = false;
+    Context context;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,6 +68,7 @@ public class ProductDetailFragment extends Fragment {
 
 
         binding.back.setOnClickListener(it -> getParentFragmentManager().popBackStack());
+
     }
 
 //    private void initSlider() {
@@ -90,6 +96,32 @@ private void getProductDetail(int id) {
                     binding.productPrice.setText(String.valueOf(pDetail.getPrice()));
                     binding.productQuantity.setText(String.valueOf("Số lượng: " +pDetail.getQuantity()));
                     binding.productDescription.setText(pDetail.getDescription());
+                    binding.imgAddToCart.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SharePreferenceManager share = new SharePreferenceManager();
+                            List<ItemCart> savedItems = share.getItems(requireContext());
+                            ItemCart cart = new ItemCart();
+                            cart.Name = pDetail.productName;
+                            cart.Img = pDetail.getImageUrl();
+                            cart.ProductId = pDetail.getId();
+                            cart.price = pDetail.getPrice();
+                            cart.quantity = 1;
+                            for (ItemCart i : savedItems) {
+                                if(i.getProductId() == cart.ProductId){
+                                    i.quantity+=1;
+                                    checkHaveCart = true;
+                                }
+                            }
+                            if(checkHaveCart == true){
+                                checkHaveCart = false;
+                            }else {
+                                savedItems.add(cart);
+                            }
+                            SharePreferenceManager.saveItems(requireContext(), savedItems);
+                            Toast.makeText(requireContext(),"Số lượng trong giỏ hàng là:"+SharePreferenceManager.getItems(requireContext()).size(),Toast.LENGTH_SHORT);
+                        }
+                    });
 
                 }
 

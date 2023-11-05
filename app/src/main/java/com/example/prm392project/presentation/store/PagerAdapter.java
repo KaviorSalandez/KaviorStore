@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.prm392project.presentation.store.cart.CartFragment;
 import com.example.prm392project.presentation.store.favorite.FavoriteFragment;
 import com.example.prm392project.presentation.store.home.HomeFragment;
 import com.example.prm392project.presentation.store.product.ProductFragment;
@@ -33,9 +34,6 @@ public class PagerAdapter extends FragmentStateAdapter {
                     break;
                 case PRODUCT:
                     fragment = new ProductFragment();
-                    break;
-                case FAVORITE:
-                    fragment = new FavoriteFragment();
                     break;
                 case SETTING:
                     fragment = new SettingFragment();

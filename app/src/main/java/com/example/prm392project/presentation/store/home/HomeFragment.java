@@ -20,6 +20,7 @@ import com.example.prm392project.R;
 import com.example.prm392project.common.SliderData;
 import com.example.prm392project.common.SliderHorizontalAdapter;
 import com.example.prm392project.databinding.FragmentHomeBinding;
+import com.example.prm392project.presentation.store.cart.CartFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -68,6 +69,19 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         moveToDetail(binding.storyHeader, binding.storyTitle, binding.storyShortDes);
         moveToDetail(binding.storyHeader1, binding.storyTitle1, binding.storyShortDes1);
         moveToDetail(binding.storyHeader2, binding.storyTitle2, binding.storyShortDes2);
+        binding.cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = requireActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction().setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out  // popExit
+                );
+                transaction.replace(R.id.wrapper, new CartFragment(), null).addToBackStack(null).commit();
+            }
+        });
     }
 
     void moveToDetail(View clickView, TextView title, TextView subTitle){

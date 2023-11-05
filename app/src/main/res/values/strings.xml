@@ -21,6 +21,7 @@
     <string name="short_des_story3"><b>Nhân viên chính bên KaviorStore là ai?</b>\n\nCác thành viên cốt cán như Mai Phương Linh, Cấn Duy Khánh, Bùi Quang Trường, Lê Văn Đức</string>
     <string name="more">Xem thêm</string>
     <string name="des">Image Description</string>
+    <string name="cart_fragment">"Giỏ hàng "</string>
     <string name="title_story">Câu chuyện</string>
     <string name="title_cus_service">Dịch vụ khách hàng</string>
     <string name="title_staff">Nhân viên</string>
