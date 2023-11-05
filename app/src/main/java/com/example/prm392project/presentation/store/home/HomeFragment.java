@@ -77,9 +77,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        moveToDetail(binding.storyHeader, binding.storyTitle, binding.storyShortDes);
-        moveToDetail(binding.storyHeader1, binding.storyTitle1, binding.storyShortDes1);
-        moveToDetail(binding.storyHeader2, binding.storyTitle2, binding.storyShortDes2);
+//        moveToDetail(binding.storyHeader, binding.storyTitle, binding.storyShortDes);
+//        moveToDetail(binding.storyHeader1, binding.storyTitle1, binding.storyShortDes1);
+//        moveToDetail(binding.storyHeader2, binding.storyTitle2, binding.storyShortDes2);
         binding.cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,23 +95,23 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
-    void moveToDetail(View clickView, TextView title, TextView subTitle){
-        clickView.setOnClickListener(v -> {
-            Bundle result = new Bundle();
-            result.putString("storyTitle", title.getText().toString());
-            result.putString("storySubTitle", subTitle.getText().toString());
-            // The child fragment needs to still set the result on its parent fragment manager.
-            getParentFragmentManager().setFragmentResult("storyKey", result);
-            FragmentManager fm = requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = fm.beginTransaction().setCustomAnimations(
-                    R.anim.slide_in,  // enter
-                    R.anim.fade_out,  // exit
-                    R.anim.fade_in,   // popEnter
-                    R.anim.slide_out  // popExit
-            );
-            transaction.replace(R.id.wrapper, new AboutDetailFragment(), null).addToBackStack(null).commit();
-        });
-    }
+//    void moveToDetail(View clickView, TextView title, TextView subTitle){
+//        clickView.setOnClickListener(v -> {
+//            Bundle result = new Bundle();
+//            result.putString("storyTitle", title.getText().toString());
+//            result.putString("storySubTitle", subTitle.getText().toString());
+//            // The child fragment needs to still set the result on its parent fragment manager.
+//            getParentFragmentManager().setFragmentResult("storyKey", result);
+//            FragmentManager fm = requireActivity().getSupportFragmentManager();
+//            FragmentTransaction transaction = fm.beginTransaction().setCustomAnimations(
+//                    R.anim.slide_in,  // enter
+//                    R.anim.fade_out,  // exit
+//                    R.anim.fade_in,   // popEnter
+//                    R.anim.slide_out  // popExit
+//            );
+//            transaction.replace(R.id.wrapper, new AboutDetailFragment(), null).addToBackStack(null).commit();
+//        });
+//    }
 
     private void initSlider() {
         ArrayList<String> imageSlider = new ArrayList<>();
