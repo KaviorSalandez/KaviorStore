@@ -107,11 +107,12 @@
                 app:layout_constraintStart_toEndOf="@id/shipping_icon"/>
 
             <TextView
-                android:id="@+id/shipping_pick"
+                android:id="@+id/total"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
                 android:enabled="true"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -123,5 +124,6 @@
             android:layout_height="wrap_content"
             android:text="Xoa"
             tools:ignore="MissingConstraints" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

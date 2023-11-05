@@ -59,6 +59,12 @@ public class CartFragment extends Fragment {
         binding.back.setOnClickListener(it -> getParentFragmentManager().popBackStack());
         recyclerCart = binding.cartList;
         List<ItemCart> poList = SharePreferenceManager.getItems(requireContext());
+        long total = 0;
+        for (ItemCart i: poList
+             ) {
+            total += i.price * i.quantity;
+        }
+        binding.total.setText("Tổng tiền: "+String.valueOf(total)+"VND");
         adapter = new ItemCartAdapter(requireContext(), poList);
         binding.cartList.setAdapter(adapter);
         binding.cartList.setLayoutManager(new LinearLayoutManager(requireContext()));
