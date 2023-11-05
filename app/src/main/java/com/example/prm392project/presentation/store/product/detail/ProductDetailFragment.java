@@ -1,5 +1,14 @@
 package com.example.prm392project.presentation.store.product.detail;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +19,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,8 +32,12 @@ import com.example.prm392project.R;
 import com.example.prm392project.common.SliderData;
 import com.example.prm392project.common.SliderVerticalAdapter;
 import com.example.prm392project.common.api.ApiService;
+import com.example.prm392project.control.SharePreferenceManager;
 import com.example.prm392project.databinding.LayoutProductBinding;
+import com.example.prm392project.model.ItemCart;
 import com.example.prm392project.model.Product;
+import com.example.prm392project.presentation.MainActivity;
+import com.example.prm392project.presentation.store.cart.CartFragment;
 import com.example.prm392project.presentation.store.product.ProductItemAdapter;
 import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
@@ -33,10 +50,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProductDetailFragment extends Fragment {
-
+    // Kênh notification
+    private static final String CHANNEL_ID = "CHANNEL 1";
+    private static final int NOTIFICATION_ID = 1;
+    private static final int REQUEST_CODE = 1001;
     LayoutProductBinding binding;
     Product pDetail = new Product();
 
+    public  boolean checkHaveCart = false;
+    Context context;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,6 +85,7 @@ public class ProductDetailFragment extends Fragment {
 
 
         binding.back.setOnClickListener(it -> getParentFragmentManager().popBackStack());
+
     }
 
 //    private void initSlider() {
@@ -90,6 +113,34 @@ private void getProductDetail(int id) {
                     binding.productPrice.setText(String.valueOf(pDetail.getPrice()));
                     binding.productQuantity.setText(String.valueOf("Số lượng: " +pDetail.getQuantity()));
                     binding.productDescription.setText(pDetail.getDescription());
+                    binding.imgAddToCart.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SharePreferenceManager share = new SharePreferenceManager();
+                            List<ItemCart> savedItems = share.getItems(requireContext());
+                            ItemCart cart = new ItemCart();
+                            cart.Name = pDetail.productName;
+                            cart.Img = pDetail.getImageUrl();
+                            cart.ProductId = pDetail.getId();
+                            cart.price = pDetail.getPrice();
+                            cart.quantity = 1;
+                            for (ItemCart i : savedItems) {
+                                if(i.getProductId() == cart.ProductId){
+                                    i.quantity+=1;
+                                    checkHaveCart = true;
+                                }
+                            }
+                            if(checkHaveCart == true){
+                                checkHaveCart = false;
+                            }else {
+                                savedItems.add(cart);
+                            }
+                            SharePreferenceManager.saveItems(requireContext(), savedItems);
+
+                            // thông báo
+                            MakeNotification2(cart);
+                        }
+                    });
 
                 }
 
@@ -99,4 +150,44 @@ private void getProductDetail(int id) {
                 }
             });
 }
+
+
+    public void MakeNotification2(ItemCart item){
+        //create channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = requireContext().getString(R.string.channel_name);
+            String description = requireContext().getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = requireContext().getSystemService(NotificationManager.class);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+        //tao intent để mở Main Activity
+        Intent intent = new Intent(requireContext(), MainActivity.class);
+        intent.putExtra("openCartFragment", true);
+        PendingIntent pendingIntent = PendingIntent.getActivity(requireContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+        //xay dung thong bao
+        NotificationCompat.Builder notificationManager  = new NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+                .setSmallIcon(R.drawable.baseline_notifications_active_24)
+                .setContentTitle("Thông báo")
+                .setContentText("Đặt hàng thành công sản phẩm "+item.getName())
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+        // Set full-screen intent
+        notificationManager.setFullScreenIntent(pendingIntent, true);
+        //thong bao
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(requireContext());
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+            notificationManagerCompat.notify(NOTIFICATION_ID, notificationManager.build());
+        } else {
+            ActivityCompat.requestPermissions((Activity) requireContext(), new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_CODE);
+        }
+    }
+
 }
+
+
+

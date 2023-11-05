@@ -29,6 +29,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.HTTP;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,19 +48,23 @@ public class RegisterFragment extends Fragment {
     private String mParam2;
 
     private FragmentRegisterBinding binding;
+
     public RegisterFragment() {
         // Required empty public constructor
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentRegisterBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -70,19 +75,38 @@ public class RegisterFragment extends Fragment {
         binding.idBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name = username.getText().toString();
                 String p = password.getText().toString();
                 String p2 = confirmpassword.getText().toString();
-                if(p.equals(p2)){
-                    Toast.makeText(requireContext(), "Mật khẩu đã khớp", Toast.LENGTH_SHORT).show();
-                    // call api to register account
-                    User userRegister = new User();
-                }
-                else{
+                if (p != null && p2 != null && p.equals(p2)) {
+
+                    User userRegister = new User(name, p);
+
+                    ApiService.apiService.register(userRegister)
+                            .enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if (response.code() == 200) {
+                                        Toast.makeText(requireContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                        Fragment loginFragment = new LoginFragment();
+                                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                        transaction.replace(R.id.fragment_register_id , loginFragment );
+                                        transaction.addToBackStack(null); // Để có khả năng quay lại fragment login
+                                        transaction.commit();
+                                    } else if(response.code() == 409){
+                                        Toast.makeText(requireContext(), "Tên đăng nhập đã tồn tại", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+
+                                }
+                            });
+                } else {
                     Toast.makeText(requireContext(), "Mật khẩu confirm không khớp", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
 
 
         binding.btnGoToLogin.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +114,7 @@ public class RegisterFragment extends Fragment {
             public void onClick(View v) {
                 Fragment loginFragment = new LoginFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_register_id , loginFragment );
+                transaction.replace(R.id.fragment_register_id, loginFragment);
                 transaction.addToBackStack(null); // Để có khả năng quay lại fragment login
                 transaction.commit();
 

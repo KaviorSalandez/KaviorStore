@@ -17,9 +17,14 @@
     <string name="content_des_cart">Đến giỏ hàng</string>
     <string name="content_des_logo">Logo Coolmate</string>
     <string name="short_des_story"><b>KaviorStore sinh ra để làm gì?</b>\n\nPhải chia sẻ thật là rất nhiều người đặt câu hỏi này cho đội ngũ, nhưng gần đây…</string>
+    <string name="short_des_story2"><b>Khách hàng là thượng đế?</b>\n\nĐối với KaviorStore chúng tôi sẽ phục vụ các bạn từ A-Z 24/7, chỉ cần gọi là chúng tôi có mặt</string>
+    <string name="short_des_story3"><b>Nhân viên chính bên KaviorStore là ai?</b>\n\nCác thành viên cốt cán như Mai Phương Linh, Cấn Duy Khánh, Bùi Quang Trường, Lê Văn Đức</string>
     <string name="more">Xem thêm</string>
     <string name="des">Image Description</string>
+    <string name="cart_fragment">"Giỏ hàng "</string>
     <string name="title_story">Câu chuyện</string>
     <string name="title_cus_service">Dịch vụ khách hàng</string>
     <string name="title_staff">Nhân viên</string>
+    <string name="channel_name">Channel 1</string>
+    <string name="channel_description">This is channel 1</string>
 </resources>
