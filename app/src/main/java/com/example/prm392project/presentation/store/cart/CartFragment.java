@@ -26,6 +26,7 @@ import com.example.prm392project.control.SharePreferenceManager;
 import com.example.prm392project.databinding.FragmentFavoriteBinding;
 import com.example.prm392project.model.ItemCart;
 import com.example.prm392project.model.Product;
+import com.example.prm392project.presentation.store.PagerFragment;
 import com.example.prm392project.presentation.store.product.ProductFragment;
 
 import java.util.ArrayList;
