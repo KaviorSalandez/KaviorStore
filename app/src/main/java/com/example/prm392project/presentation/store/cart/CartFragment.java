@@ -1,12 +1,19 @@
 package com.example.prm392project.presentation.store.cart;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,10 +21,13 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.prm392project.R;
 import com.example.prm392project.control.SharePreferenceManager;
 import com.example.prm392project.databinding.FragmentFavoriteBinding;
 import com.example.prm392project.model.ItemCart;
 import com.example.prm392project.model.Product;
+import com.example.prm392project.presentation.store.PagerFragment;
+import com.example.prm392project.presentation.store.product.ProductFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +69,17 @@ public class CartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.back.setOnClickListener(it -> getParentFragmentManager().popBackStack());
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Thay `R.id.fragment_container` bằng ID của container Fragment của bạn
+                PagerFragment productFragment = new PagerFragment();
+                FragmentManager fm = requireActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.wrapper, productFragment, null).addToBackStack(null).commit();
+
+            }
+        });
         recyclerCart = binding.cartList;
         List<ItemCart> poList = SharePreferenceManager.getItems(requireContext());
 
@@ -109,12 +129,26 @@ public class CartFragment extends Fragment {
         binding.clearCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                binding.total.setText("Tổng tiền: "+0+" VND");
                 SharePreferenceManager.clearItems(requireContext());
                 poList.clear();
                 adapter.notifyDataSetChanged();
+
             }
         });
-
+        binding.checkOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = requireActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction().setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out  // popExit
+                );
+                transaction.replace(R.id.wrapper, new CheckOutFragment(), null).addToBackStack(null).commit();
+            }
+        });
     }
 
     private long totalBill(List<ItemCart> list) {

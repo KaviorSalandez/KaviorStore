@@ -17,7 +17,9 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -47,6 +49,12 @@ public interface ApiService {
     @GET("auth/login")
     Call<String> login(@Query("username") String username, @Query("password") String password);
 
+<<<<<<< HEAD
     @POST("order")
     Call<Cart> addOrder(@Body Cart cart, @Header("Authorization") String authHeader);
+=======
+    @Headers("Content-Type: application/json")
+    @PUT("user/update")
+    Call<Void> updateUser(@Header("Authorization") String authHeader, @Body User user);
+>>>>>>> 19351b2b7ef0d6490a4ac7ed65c40cf28b1644f4
 }
