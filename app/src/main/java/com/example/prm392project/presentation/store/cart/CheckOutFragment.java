@@ -23,6 +23,7 @@ import com.example.prm392project.model.CartDetail;
 import com.example.prm392project.model.ItemCart;
 import com.example.prm392project.model.User;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,15 +69,27 @@ public class CheckOutFragment extends Fragment {
                 c.setAddress(binding.edtAddress.getText().toString());
                 c.setNote(binding.edtNote.getText().toString());
                 c.setPhone(binding.edtPhone.getText().toString());
+                c.setOrderDate(Instant.now());
                 c.setPrice(Double.valueOf(price));
-
-                List<ItemCart> itemCarts = SharePreferenceManager.getItems(requireContext());
 
                 SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE);
                 String token = sharedPreferences.getString("token", "");
-                ApiService.apiService.addOrder(c, "Bearer " + token);
+                ApiService.apiService.addOrder(c, "Bearer " + token)
 
+                        .enqueue(new Callback<Cart>() {
+                            @Override
+                            public void onResponse(Call<Cart> call, Response<Cart> response) {
+                                if(response.body() != null){
+                                    Cart cart = response.body();
+                                    addOrderDetail(cart);
+                                }
+                            }
 
+                            @Override
+                            public void onFailure(Call<Cart> call, Throwable t) {
+                                Toast.makeText(requireContext(), "error" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
 
@@ -102,5 +115,29 @@ public class CheckOutFragment extends Fragment {
                     }
                 });
         return userLogin;
+    }
+
+    private void addOrderDetail(Cart cart){
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+        List<ItemCart> itemCarts = SharePreferenceManager.getItems(requireContext());
+        for (ItemCart i: itemCarts) {
+            CartDetail detail = new CartDetail();
+            detail.setPrice((int) (i.getPrice() * i.getQuantity()));
+            detail.setQuantity(i.getQuantity());
+
+            ApiService.apiService.addCartDetails(detail, cart.getId(), i.ProductId, "Bearer " + token)
+                    .enqueue(new Callback<CartDetail>() {
+                        @Override
+                        public void onResponse(Call<CartDetail> call, Response<CartDetail> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<CartDetail> call, Throwable t) {
+
+                        }
+                    });
+        }
     }
 }

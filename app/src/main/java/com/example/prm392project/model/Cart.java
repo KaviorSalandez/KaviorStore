@@ -9,30 +9,18 @@ public class Cart {
     private String address;
 
     private String phone;
-
-    private  int uId;
-
-    public int getuId() {
-        return uId;
-    }
-
-    public void setuId(int uId) {
-        this.uId = uId;
-    }
-
     private  String note;
 
     public String getPhone() {
         return phone;
     }
-    public Cart(int id, Double price, String address, String phone, String note, Instant orderDate, int uId) {
+    public Cart(int id, Double price, String address, String phone, String note, Instant orderDate) {
         this.id = id;
         this.price = price;
         this.address = address;
         this.phone = phone;
         this.note = note;
         this.orderDate = orderDate;
-        this.uId = uId;
     }
     public void setPhone(String phone) {
         this.phone = phone;
@@ -46,7 +34,7 @@ public class Cart {
         this.note = note;
     }
 
-    private Instant orderDate;
+    private Instant orderDate = Instant.now();
 
     public Cart() {
     }
