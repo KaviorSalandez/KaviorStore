@@ -35,7 +35,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/brand_describe"
+                android:text="Cửa hàng bàn phím"
                 android:textAlignment="center"
                 android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="@id/logo"
