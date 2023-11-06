@@ -1,12 +1,19 @@
 package com.example.prm392project.presentation.store.cart;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -122,12 +129,26 @@ public class CartFragment extends Fragment {
         binding.clearCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                binding.total.setText("Tổng tiền: "+0+" VND");
                 SharePreferenceManager.clearItems(requireContext());
                 poList.clear();
                 adapter.notifyDataSetChanged();
+
             }
         });
-
+        binding.checkOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = requireActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction().setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out  // popExit
+                );
+                transaction.replace(R.id.wrapper, new CheckOutFragment(), null).addToBackStack(null).commit();
+            }
+        });
     }
 
     private long totalBill(List<ItemCart> list) {
