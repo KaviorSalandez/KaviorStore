@@ -1,5 +1,6 @@
 package com.example.prm392project.common.api;
 
+import com.example.prm392project.model.Cart;
 import com.example.prm392project.model.Product;
 import com.example.prm392project.model.User;
 import com.google.gson.Gson;
@@ -46,4 +47,6 @@ public interface ApiService {
     @GET("auth/login")
     Call<String> login(@Query("username") String username, @Query("password") String password);
 
+    @POST("order")
+    Call<Cart> addOrder(@Body Cart cart, @Header("Authorization") String authHeader);
 }
