@@ -14,10 +14,13 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.prm392project.R;
 import com.example.prm392project.control.SharePreferenceManager;
 import com.example.prm392project.databinding.FragmentFavoriteBinding;
 import com.example.prm392project.model.ItemCart;
 import com.example.prm392project.model.Product;
+import com.example.prm392project.presentation.store.PagerFragment;
+import com.example.prm392project.presentation.store.product.ProductFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +62,17 @@ public class CartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.back.setOnClickListener(it -> getParentFragmentManager().popBackStack());
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Thay `R.id.fragment_container` bằng ID của container Fragment của bạn
+                PagerFragment productFragment = new PagerFragment();
+                FragmentManager fm = requireActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.wrapper, productFragment, null).addToBackStack(null).commit();
+
+            }
+        });
         recyclerCart = binding.cartList;
         List<ItemCart> poList = SharePreferenceManager.getItems(requireContext());
 
