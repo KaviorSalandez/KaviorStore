@@ -21,6 +21,12 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_logostore"
+        app:layout_constraintEnd_toEndOf="@+id/idTVHeader"
+        android:layout_marginTop="500dp"/>
 
     <!--edit text for user name-->
     <EditText
@@ -62,7 +68,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/black"
-        android:text="Login"
+        android:text="Đăng nhập"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/idEdtPassword" />
@@ -72,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="Register"
+        android:text="Đăng kí"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
