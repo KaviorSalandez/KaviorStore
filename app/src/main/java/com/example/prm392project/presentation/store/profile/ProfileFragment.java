@@ -102,10 +102,10 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.code() == 200) {
-                            Toast.makeText(requireContext(), "Câp nhật thông tin tài khoản thành công." + response.code(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Câp nhật thành công.", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            Toast.makeText(requireContext(), "Cập nhật thất bại." + response.code(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Cập nhật thất bại.", Toast.LENGTH_SHORT).show();
                         }
 
                     }
