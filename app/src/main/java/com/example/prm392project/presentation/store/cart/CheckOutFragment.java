@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,9 +18,12 @@ import com.example.prm392project.common.api.ApiService;
 import com.example.prm392project.control.SharePreferenceManager;
 import com.example.prm392project.databinding.FragmentCheckoutBinding;
 import com.example.prm392project.databinding.FragmentFavoriteBinding;
+import com.example.prm392project.model.Cart;
+import com.example.prm392project.model.CartDetail;
 import com.example.prm392project.model.ItemCart;
 import com.example.prm392project.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,6 +33,7 @@ import retrofit2.Response;
 public class CheckOutFragment extends Fragment {
     private FragmentCheckoutBinding binding;
     User userLogin;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,11 +51,38 @@ public class CheckOutFragment extends Fragment {
         ) {
             total += i.price * i.quantity;
         }
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("TOTAL_BILL", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("totalMoney", String.valueOf(total));
+        editor.commit();
         binding.txtTongtien.setText("Tổng tiền: " + String.valueOf(total) + "VND");
         userLogin = getUserLoggedIn();
+        binding.btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences sharedPreferencesPrice = requireActivity().getSharedPreferences("TOTAL_BILL", Context.MODE_PRIVATE);
+                String price = sharedPreferences.getString("totalMoney", "0");
+
+                Cart c = new Cart();
+                c.setAddress(binding.edtAddress.getText().toString());
+                c.setNote(binding.edtNote.getText().toString());
+                c.setPhone(binding.edtPhone.getText().toString());
+                c.setPrice(Double.valueOf(price));
+
+                List<ItemCart> itemCarts = SharePreferenceManager.getItems(requireContext());
+
+                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE);
+                String token = sharedPreferences.getString("token", "");
+                ApiService.apiService.addOrder(c, "Bearer " + token);
+
+
+            }
+        });
 
     }
-    private User getUserLoggedIn(){
+
+    private User getUserLoggedIn() {
 
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token", "");
@@ -58,7 +90,7 @@ public class CheckOutFragment extends Fragment {
                 .enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-                        if(response.body() != null){
+                        if (response.body() != null) {
                             userLogin = response.body();
                             binding.edtName.setText(userLogin.getUsername());
                         }

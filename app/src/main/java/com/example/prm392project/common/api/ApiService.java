@@ -1,6 +1,7 @@
 package com.example.prm392project.common.api;
 
 import com.example.prm392project.model.Cart;
+import com.example.prm392project.model.CartDetail;
 import com.example.prm392project.model.Product;
 import com.example.prm392project.model.User;
 import com.google.gson.Gson;
@@ -54,4 +55,7 @@ public interface ApiService {
     @Headers("Content-Type: application/json")
     @PUT("user/update")
     Call<Void> updateUser(@Header("Authorization") String authHeader, @Body User user);
+
+    @POST("order_detail")
+    Call<CartDetail> addCartDetails(@Body CartDetail cartDetail, @Query("cartId") int cartId, @Query("productId") int productId, @Header("Authorization") String authHeader);
 }
