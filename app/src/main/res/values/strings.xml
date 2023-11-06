@@ -9,8 +9,8 @@
     <string name="brand_describe">Thời trang nam</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBeYL-ONrwYI9VnvHM8UAKRrQ0viX-I66Y</string>
-    <string name="title_login_form">Chào mừng đến với KaviorStoreKeyBroad \n Đăng nhập</string>
-    <string name="title_register_form">Chào mừng đến với KaviorStoreKeyBroad \n Đăng kí</string>
+    <string name="title_login_form">Chào mừng đến với KaviorStoreKeyBoard \n Đăng nhập</string>
+    <string name="title_register_form">Chào mừng đến với KaviorStoreKeyBoard \n Đăng kí</string>
     <string name="hint_username_login">Tên tài khoản</string>
     <string name="hint_password_login">Mật khẩu</string>
     <string name="content_des_chat">Đến tin nhắn</string>

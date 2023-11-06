@@ -20,6 +20,7 @@ import com.example.prm392project.databinding.FragmentLoginBinding;
 import com.example.prm392project.databinding.FragmentProfileBinding;
 import com.example.prm392project.model.User;
 import com.example.prm392project.presentation.login.LoginFragment;
+import com.example.prm392project.presentation.store.PagerFragment;
 import com.example.prm392project.presentation.store.setting.SettingFragment;
 
 import retrofit2.Call;
@@ -55,8 +56,13 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = requireActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.wrapper, new SettingFragment(), null).commit();
+                FragmentTransaction transaction = fm.beginTransaction().setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out  // popExit
+                );
+                transaction.replace(R.id.wrapper, new PagerFragment(), null).commit();
             }
         });
         binding.btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -65,8 +71,23 @@ public class ProfileFragment extends Fragment {
                 userLogin.setAddress(binding.txbUserAddress.getText().toString());
                 userLogin.setPhone(binding.txbUserPhone.getText().toString());
                 updateUserInfo(userLogin);
-
-
+            }
+        });
+        binding.btnUpdateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(userLogin.getPassword().equals(binding.txbOldPass.getText().toString()) ){
+                    if(binding.txbNewPass.getText().toString().equals(binding.txbReNewPass.getText().toString())){
+                        userLogin.setPassword(binding.txbReNewPass.getText().toString());
+                        updateUserInfo(userLogin);
+                    }
+                    else{
+                        Toast.makeText(requireContext(), "Nhập lại mật khẩu mới", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    Toast.makeText(requireContext(), "Mật khẩu cũ sai", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
