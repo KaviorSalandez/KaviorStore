@@ -68,7 +68,17 @@ public class CartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.back.setOnClickListener(it -> getParentFragmentManager().popBackStack());
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Thay `R.id.fragment_container` bằng ID của container Fragment của bạn
+                PagerFragment productFragment = new PagerFragment();
+                FragmentManager fm = requireActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.wrapper, productFragment, null).addToBackStack(null).commit();
+
+            }
+        });
         recyclerCart = binding.cartList;
         List<ItemCart> poList = SharePreferenceManager.getItems(requireContext());
 

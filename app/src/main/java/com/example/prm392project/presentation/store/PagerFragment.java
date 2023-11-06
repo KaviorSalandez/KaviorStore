@@ -1,10 +1,21 @@
 package com.example.prm392project.presentation.store;
 
+import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,7 +23,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.Manifest;
+import com.example.prm392project.R;
+import com.example.prm392project.control.SharePreferenceManager;
 import com.example.prm392project.databinding.FragmentPagerBinding;
+import com.example.prm392project.model.ItemCart;
+import com.example.prm392project.presentation.MainActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -20,8 +36,10 @@ import java.util.List;
 
 public class PagerFragment extends Fragment {
 
+
     private FragmentPagerBinding binding;
     private PagerViewModel viewModel;
+
 
     public PagerFragment() {
         // Required empty public constructor
@@ -52,6 +70,8 @@ public class PagerFragment extends Fragment {
             tab.setIcon(getResources().getDrawable(tabs.get(position).icon));
         }).attach();
         binding.viewpager.setUserInputEnabled(false);
+
+
         binding.navigation.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -73,4 +93,7 @@ public class PagerFragment extends Fragment {
             }
         });
     }
+
+
+
 }

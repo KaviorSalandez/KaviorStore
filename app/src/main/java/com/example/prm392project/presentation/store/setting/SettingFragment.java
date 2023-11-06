@@ -19,6 +19,7 @@ import com.example.prm392project.R;
 import com.example.prm392project.databinding.FragmentSettingBinding;
 import com.example.prm392project.presentation.login.LoginFragment;
 import com.example.prm392project.presentation.store.chat.ChatShareRfr;
+import com.example.prm392project.presentation.store.profile.ProfileFragment;
 
 public class SettingFragment extends Fragment {
     public static String USER_FILE_NAME = "User";
@@ -47,18 +48,14 @@ public class SettingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         SharedPreferences modePreferences = requireActivity().getSharedPreferences(USER_FILE_NAME, Context.MODE_PRIVATE);
-        TextView username = binding.username;
-        TextView email = binding.email;
+
         String usn = modePreferences.getString(NAME_KEY, "123");
-        username.setText(usn);
-        email.setText(usn + "@gmail.com");
         binding.logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 modePreferences.edit().putString(NAME_KEY, null).apply();
                 modePreferences.edit().putString(PASS_KEY, null).apply();
-//                Intent intent = new Intent(requireActivity(), LoginFragment.class);
-//                startActivity(intent);
+
 
                 // Xóa lịch sử chat trong sharepreference
                 ChatShareRfr.clearItems(requireContext());
@@ -66,6 +63,19 @@ public class SettingFragment extends Fragment {
                 FragmentManager fm = requireActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.replace(R.id.wrapper, new LoginFragment(), null).commit();
+            }
+        });
+        binding.profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = requireActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction().setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out  // popExit
+                );
+                transaction.replace(R.id.wrapper, new ProfileFragment(), null).commit();
             }
         });
     }

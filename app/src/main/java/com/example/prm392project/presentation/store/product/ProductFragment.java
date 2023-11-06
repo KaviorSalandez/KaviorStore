@@ -100,7 +100,7 @@ public class ProductFragment extends Fragment {
                     public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
 
                         productList = response.body();
-                        Toast.makeText(requireContext(), "" + productList.size(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(requireContext(), "" + productList.size(), Toast.LENGTH_SHORT).show();
                         ProductItemAdapter adapter = new ProductItemAdapter(requireContext(), productList);
                         recyclerProduct.setAdapter(adapter);
                         adapter.setOnClickListener((position, p) -> {
