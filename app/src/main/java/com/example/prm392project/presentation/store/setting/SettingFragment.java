@@ -13,12 +13,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.prm392project.R;
 import com.example.prm392project.databinding.FragmentSettingBinding;
 import com.example.prm392project.presentation.login.LoginFragment;
-import com.example.prm392project.presentation.store.chat.ChatShareRfr;
 import com.example.prm392project.presentation.store.profile.ProfileFragment;
 
 public class SettingFragment extends Fragment {
@@ -58,8 +56,8 @@ public class SettingFragment extends Fragment {
 
 
                 // Xóa lịch sử chat trong sharepreference
-                ChatShareRfr.clearItems(requireContext());
-
+//                ChatShareRfr.clearItems(requireContext());
+//                ChatShareRfr2.clearItems(requireContext());
                 FragmentManager fm = requireActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.replace(R.id.wrapper, new LoginFragment(), null).commit();

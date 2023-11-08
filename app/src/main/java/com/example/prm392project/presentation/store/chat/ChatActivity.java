@@ -1,5 +1,7 @@
 package com.example.prm392project.presentation.store.chat;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +19,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392project.R;
+import com.example.prm392project.common.api.ApiService;
 import com.example.prm392project.model.Chat;
+import com.example.prm392project.model.User;
 import com.example.prm392project.presentation.store.PagerFragment;
 import com.example.prm392project.presentation.store.home.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChatActivity extends AppCompatActivity {
     CardView sendbtn;
@@ -32,6 +40,7 @@ public class ChatActivity extends AppCompatActivity {
     RecyclerView mesRecycleView;
 
     List<Chat> messageArrayList ;
+    User user;
 
     MessageAdapter mesAdapter;
 
@@ -47,28 +56,32 @@ public class ChatActivity extends AppCompatActivity {
 
 
         messageArrayList = ChatShareRfr.getItems(getApplicationContext());
-
+        user = getUserLoggedIn();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setStackFromEnd(true);
 
         mesRecycleView.setLayoutManager(linearLayoutManager);
         mesAdapter = new MessageAdapter( this, messageArrayList);
         mesRecycleView.setAdapter(mesAdapter);
-
+        mesAdapter.notifyDataSetChanged();
         sendbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String message = textmsg.getText().toString();
                 if (message.isEmpty()) {
                     Toast.makeText(ChatActivity.this, "Enter message first!", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     textmsg.setText("");
-                    Chat currentchat = new Chat(message);
+                    Chat currentchat;
 
-                    messageArrayList.add(currentchat);
+                        currentchat = new Chat(user.getId(), message);
+
+                        messageArrayList.add(currentchat);
                     ChatShareRfr.saveItems(getApplicationContext(), messageArrayList);
+//                    ChatShareRfr2.saveItems(getApplicationContext(), messageArrayList2);
                     mesAdapter.notifyDataSetChanged();
                 }
 
@@ -83,5 +96,30 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private User getUserLoggedIn(){
+
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+        ApiService.apiService.getLoggedInUserProfile("Bearer " + token)
+                .enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if(response.body() != null){
+                            user = response.body();
+                            UserShareRfr.saveItems(getApplicationContext(),response.body());
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "aaa", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+
+                    }
+                });
+        return user;
     }
 }
