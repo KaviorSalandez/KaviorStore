@@ -1,6 +1,8 @@
 package com.example.prm392project.model;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Cart {
     private int id;
@@ -9,19 +11,12 @@ public class Cart {
     private String address;
 
     private String phone;
-    private  String note;
+    private String note;
 
     public String getPhone() {
         return phone;
     }
-    public Cart(int id, Double price, String address, String phone, String note, Instant orderDate) {
-        this.id = id;
-        this.price = price;
-        this.address = address;
-        this.phone = phone;
-        this.note = note;
-        this.orderDate = orderDate;
-    }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -34,9 +29,15 @@ public class Cart {
         this.note = note;
     }
 
-    private Instant orderDate = Instant.now();
-
     public Cart() {
+    }
+
+    public Cart(int id, Double price, String address, String phone, String note) {
+        this.id = id;
+        this.price = price;
+        this.address = address;
+        this.phone = phone;
+        this.note = note;
     }
 
     public int getId() {
@@ -63,11 +64,4 @@ public class Cart {
         this.address = address;
     }
 
-    public Instant getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Instant orderDate) {
-        this.orderDate = orderDate;
-    }
 }
