@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PRM392Project"
         android:usesCleartextTraffic="true"
+        android:enableOnBackInvokedCallback="true"
         tools:targetApi="31">
         <activity
             android:name=".presentation.store.chat.ChatActivity"
