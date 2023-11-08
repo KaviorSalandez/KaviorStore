@@ -24,7 +24,10 @@ import com.example.prm392project.model.ItemCart;
 import com.example.prm392project.model.User;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -69,30 +72,29 @@ public class CheckOutFragment extends Fragment {
                 c.setAddress(binding.edtAddress.getText().toString());
                 c.setNote(binding.edtNote.getText().toString());
                 c.setPhone(binding.edtPhone.getText().toString());
-                c.setOrderDate(Instant.now());
                 c.setPrice(Double.valueOf(price));
+                //c.setOrderDate(Instant.now());
 
                 SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("USER_TOKEN", Context.MODE_PRIVATE);
                 String token = sharedPreferences.getString("token", "");
                 ApiService.apiService.addOrder(c, "Bearer " + token)
-
                         .enqueue(new Callback<Cart>() {
                             @Override
                             public void onResponse(Call<Cart> call, Response<Cart> response) {
                                 if(response.body() != null){
                                     Cart cart = response.body();
                                     addOrderDetail(cart);
+                                    Toast.makeText(requireContext(), "Đặt hàng thành công.", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<Cart> call, Throwable t) {
-                                Toast.makeText(requireContext(), "error" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(requireContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
             }
         });
-
     }
 
     private User getUserLoggedIn() {
