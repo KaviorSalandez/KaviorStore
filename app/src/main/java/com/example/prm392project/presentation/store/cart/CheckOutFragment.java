@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.prm392project.R;
 import com.example.prm392project.common.api.ApiService;
@@ -37,6 +39,7 @@ import retrofit2.Response;
 public class CheckOutFragment extends Fragment {
     private FragmentCheckoutBinding binding;
     User userLogin;
+    private ItemCartAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,7 +87,16 @@ public class CheckOutFragment extends Fragment {
                                 if(response.body() != null){
                                     Cart cart = response.body();
                                     addOrderDetail(cart);
-                                    Toast.makeText(requireContext(), "Đặt hàng thành công.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(requireContext(), "Đặt hàng thành công.", Toast.LENGTH_SHORT).show();SharePreferenceManager.clearItems(requireContext());
+                                    SharePreferenceManager.clearItems(requireContext());
+                                    FragmentManager fm = requireActivity().getSupportFragmentManager();
+                                    FragmentTransaction transaction = fm.beginTransaction().setCustomAnimations(
+                                            R.anim.slide_in,  // enter
+                                            R.anim.fade_out,  // exit
+                                            R.anim.fade_in,   // popEnter
+                                            R.anim.slide_out  // popExit
+                                    );
+                                    transaction.replace(R.id.wrapper, new CartFragment(), null).addToBackStack(null).commit();
                                 }
                             }
 
